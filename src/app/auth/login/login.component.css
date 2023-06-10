@@ -1,0 +1,11 @@
+.auth-one-bg .bg-overlay {
+  background: linear-gradient(45deg, black, black) !important;
+}
+
+:host ::ng-deep .p-button {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}

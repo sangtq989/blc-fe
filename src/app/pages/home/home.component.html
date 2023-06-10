@@ -1,0 +1,294 @@
+<body class="font-nunito text-base text-white">
+  <!-- Loader Start -->
+  <!-- <div id="preloader">
+          <div id="status">
+              <div class="spinner">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+              </div>
+          </div>
+      </div> -->
+  <!-- Loader End -->
+
+  <!-- Start Navbar -->
+
+  <!-- Start Hero -->
+  <section class="relative items-center overflow-hidden">
+    <div
+      class="absolute top-0 start-0 w-full h-full z-0 pointer-events-none overflow-hidden"
+    >
+      <img
+        src="assets/images/illustrator/celebration.svg"
+        class="mx-auto"
+        alt=""
+        style="height: 100%"
+      />
+      <!--Note: Vimeo Embed Background Video-->
+
+      <!-- <iframe src="https://www.youtube.com/embed/yba7hPeTSjk?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1" class="absolute top-1/2 start-1/2 ltr:-translate-x-1/2 rtl:translate-x-1/2  -translate-y-1/2 w-screen h-[56.25vw] min-h-screen min-w-[177.77vw]"></iframe> -->
+      <!--Note: Youtube Embed Background Video-->
+    </div>
+    <div class="container z-2" style="height: 550px !important">
+      <div class="grid grid-cols-1 md:mt-44 mt-32 text-center">
+        <h4
+          class="font-bold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5"
+        >
+          Tìm kiếm chuyên gia phù hợp với bạn !
+        </h4>
+
+        <div class="mt-6">
+          <div class="search-collapse p-3">
+            <div class="row mb-3">
+              <div class="col-lg-10 text-start">
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="Vị trí việc làm (Ví dụ: Malware Analyst)"
+                  (click)="showSearchAdvance()"
+                />
+              </div>
+              <div class="col-lg-2">
+                <p-button
+                  class="mx-2"
+                  label="Tìm kiếm"
+                  styleClass="p-button-info"
+                ></p-button>
+              </div>
+            </div>
+          </div>
+          <div class="content" id="content">
+            <div class="row mb-3">
+              <div class="col-lg-6 text-start">
+                <span>Tìm kiếm nâng cao</span>
+              </div>
+              <div class="col-lg-6 text-end">
+                <span style="cursor: pointer" (click)="hideAdvanceSearch()"
+                  >Thu gọn</span
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <p-dropdown
+                  [options]="techniqueList"
+                  optionLabel="name"
+                  placeholder="Chuyên môn"
+                ></p-dropdown>
+              </div>
+              <div class="col-lg-3">
+                <p-dropdown
+                  [options]="certList"
+                  optionLabel="name"
+                  placeholder="Chứng chỉ"
+                ></p-dropdown>
+              </div>
+              <div class="col-lg-3">
+                <p-dropdown
+                  [options]="expYearList"
+                  optionLabel="name"
+                  placeholder="Năm kinh nghiệm"
+                ></p-dropdown>
+              </div>
+              <div class="col-lg-3">
+                <p-dropdown
+                  [options]="locationList"
+                  optionLabel="name"
+                  placeholder="Địa điểm"
+                ></p-dropdown>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end grid-->
+
+      <!-- <div class="md:flex justify-center mt-10">
+                  <div class="lg:w-1/2 md:w-2/3"> -->
+      <!-- </div>
+              </div> -->
+    </div>
+    <!--end container-->
+  </section>
+  <!--end section-->
+
+  <!-- Start Section-->
+  <section class="relative md:py-24 py-16">
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col-lg-6 text-start">
+          <span class="text-black fs-3"><b>Top chuyên gia nổi bật</b></span>
+        </div>
+        <div class="col-lg-6 text-end">
+          <a routerLink="/expert/list"
+            ><span class="text-info"
+              >Xem tất cả <i class="fa-regular fa-arrow-right"></i></span
+          ></a>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-lg-4">
+          <p-card header="Advanced Card" subheader="Card Subheader">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Inventore sed consequuntur error repudiandae numquam deserunt
+              quisquam repellat libero asperiores earum nam nobis, culpa ratione
+              quam perferendis esse, cupiditate neque quas!
+            </p>
+            <ng-template pTemplate="footer">
+              <p-button label="Save" icon="pi pi-check"></p-button>
+              <p-button
+                label="Cancel"
+                icon="pi pi-times"
+                styleClass="p-button-secondary"
+                [style]="{ 'margin-left': '.5em' }"
+              ></p-button>
+            </ng-template>
+          </p-card>
+        </div>
+        <div class="col-lg-4">
+          <p-card header="Advanced Card" subheader="Card Subheader">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Inventore sed consequuntur error repudiandae numquam deserunt
+              quisquam repellat libero asperiores earum nam nobis, culpa ratione
+              quam perferendis esse, cupiditate neque quas!
+            </p>
+            <ng-template pTemplate="footer">
+              <p-button label="Save" icon="pi pi-check"></p-button>
+              <p-button
+                label="Cancel"
+                icon="pi pi-times"
+                styleClass="p-button-secondary"
+                [style]="{ 'margin-left': '.5em' }"
+              ></p-button>
+            </ng-template>
+          </p-card>
+        </div>
+        <div class="col-lg-4">
+          <p-card header="Advanced Card" subheader="Card Subheader">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Inventore sed consequuntur error repudiandae numquam deserunt
+              quisquam repellat libero asperiores earum nam nobis, culpa ratione
+              quam perferendis esse, cupiditate neque quas!
+            </p>
+            <ng-template pTemplate="footer">
+              <p-button label="Save" icon="pi pi-check"></p-button>
+              <p-button
+                label="Cancel"
+                icon="pi pi-times"
+                styleClass="p-button-secondary"
+                [style]="{ 'margin-left': '.5em' }"
+              ></p-button>
+            </ng-template>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Start Section-->
+  <section
+    class="relative md:py-24 py-16 bg-gray-50 dark:bg-slate-800 bg-transparent-service"
+  >
+    <div class="container">
+      <div class="row text-center" style="margin-bottom: 50px">
+        <span class="text-black fs-3"><b>Các dịch vụ ứng cứu sự cố</b></span>
+      </div>
+      <div class="row mb-3">
+        <div class="col-lg-4">
+          <p-card header="Advanced Card" subheader="Card Subheader">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Inventore sed consequuntur error repudiandae numquam deserunt
+              quisquam repellat libero asperiores earum nam nobis, culpa ratione
+              quam perferendis esse, cupiditate neque quas!
+            </p>
+          </p-card>
+        </div>
+        <div class="col-lg-4">
+          <p-card header="Advanced Card" subheader="Card Subheader">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Inventore sed consequuntur error repudiandae numquam deserunt
+              quisquam repellat libero asperiores earum nam nobis, culpa ratione
+              quam perferendis esse, cupiditate neque quas!
+            </p>
+          </p-card>
+        </div>
+        <div class="col-lg-4">
+          <p-card header="Advanced Card" subheader="Card Subheader">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Inventore sed consequuntur error repudiandae numquam deserunt
+              quisquam repellat libero asperiores earum nam nobis, culpa ratione
+              quam perferendis esse, cupiditate neque quas!
+            </p>
+          </p-card>
+        </div>
+      </div>
+    </div>
+    <!--end container-->
+  </section>
+
+  <section class="relative md:py-24 py-16 bg-gray-50 dark:bg-slate-800">
+    <div class="container">
+      <div class="row text-center" style="margin-bottom: 50px">
+        <span class="text-black fs-3"><b>Về chúng tôi</b></span>
+      </div>
+      <div class="row mb-3">
+        <div class="col-lg-5">
+          <p-card header="Advanced Card" subheader="Card Subheader">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Inventore sed consequuntur error repudiandae numquam deserunt
+              quisquam repellat libero asperiores earum nam nobis, culpa ratione
+              quam perferendis esse, cupiditate neque quas!
+            </p>
+          </p-card>
+        </div>
+        <div class="col-lg-7">
+          <p class="text-black">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+            sed consequuntur error repudiandae numquam deserunt quisquam
+            repellat libero asperiores earum nam nobis, culpa ratione quam
+            perferendis esse, cupiditate neque quas!
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--end container-->
+  </section>
+
+  <!-- Footer Start -->
+  <footer
+    class="footer bg-dark-footer relative text-gray-200 dark:text-gray-200"
+  >
+    <div class="py-[30px] px-0 border-t border-slate-800">
+      <div class="container text-center">
+        <div class="text-center">
+          <div class="ltr:md:text-left rtl:md:text-right text-center">
+            <p class="mb-0">
+              ©
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              Techwind. Design with
+              <i class="mdi mdi-heart text-red-600"></i> by
+              <a
+                href="https://shreethemes.in/"
+                target="_blank"
+                class="text-reset"
+                >Shreethemes</a
+              >.
+            </p>
+          </div>
+        </div>
+        <!--end grid-->
+      </div>
+      <!--end container-->
+    </div>
+  </footer>
+  <!--end footer-->
+  <!-- Footer End -->
+</body>

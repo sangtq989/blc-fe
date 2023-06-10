@@ -1,0 +1,39 @@
+nav.is-sticky {
+  background-color: #151b5a !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+nav.nav-sticky {
+  background-color: transparent !important;
+  background-color: #151b5a !important;
+}
+
+.navigation-menu .active {
+  color: blue !important;
+}
+
+:host ::ng-deep .p-avatar-circle {
+  cursor: pointer;
+}
+
+.dropdown-profile {
+  position: absolute;
+  top: 40px;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  display: none;
+}
+
+.dropdown-profile p:hover,
+.dropdown-profile p:hover a {
+  color: blue !important;
+}
+
+.dropdown-profile.active {
+  display: block;
+}

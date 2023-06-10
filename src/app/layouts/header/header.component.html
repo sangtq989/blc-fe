@@ -1,0 +1,96 @@
+<nav id="topnav" class="defaultscroll is-sticky">
+  <div class="d-flex align-items-center">
+    <!-- Logo container-->
+    <div class="col-lg-1"></div>
+    <div class="col-lg-2 d-flex align-items-center">
+      <a class="logo" href="index.html">
+        <span class="inline-block dark:hidden text-white fs-2">LOGO</span>
+      </a>
+    </div>
+
+    <div class="col-lg-4" id="navigation">
+      <ul class="navigation-menu" id="navigation-menu">
+        <li>
+          <span class="mx-2 fs-4" (click)="onNavgigate($event)"
+            ><a class="text-white active" routerLink="/">Trang chủ</a></span
+          >
+        </li>
+
+        <li>
+          <span class="mx-2 fs-4" (click)="onNavgigate($event)"
+            ><a class="text-white" routerLink="/expert/detail">Chuyên gia</a></span
+          >
+        </li>
+
+        <li>
+          <span class="mx-2 fs-4" (click)="onNavgigate($event)"
+            ><a class="text-white">Về chúng tôi</a></span
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!--Login button Start-->
+    <div class="col-lg-4 d-flex justify-content-end" *ngIf="!login">
+      <a class="text-white" routerLink="/auth/login">
+        <p-button class="mx-2" label="Đăng nhập" styleClass="p-button-outlined">
+        </p-button
+      ></a>
+      <a
+        class="text-white"
+        routerLink="/auth/sign-up"
+        [queryParams]="{ role: 'user' }"
+      >
+        <p-button
+          class="mx-2"
+          label="Đăng ký"
+          styleClass="p-button-info"
+        ></p-button>
+      </a>
+      <a
+        class="text-white"
+        routerLink="/auth/sign-up"
+        [queryParams]="{ role: 'expert' }"
+      >
+        <p-button
+          class="mx-2"
+          label="Đăng kí cho chuyên gia"
+          styleClass="p-button-info"
+        ></p-button
+      ></a>
+    </div>
+
+    <div
+      class="col-lg-4 d-flex justify-content-end"
+      style="position: relative"
+      *ngIf="login"
+    >
+      <p-avatar
+        icon="pi pi-bell"
+        styleClass="mr-2 mx-2"
+        [style]="{ 'background-color': '#ffffff', color: '#2196F3' }"
+        shape="circle"
+      ></p-avatar>
+      <p-avatar
+        styleClass="mr-2 mx-2"
+        image="../assets/images/hero1.png"
+        [style]="{ 'background-color': '#ffffff', color: '#2196F3' }"
+        shape="circle"
+        (click)="onClickProfile()"
+      ></p-avatar>
+
+      <div class="dropdown-profile" id="dropdown-profile">
+        <p>
+          <i class="fa-sharp fa-regular fa-user-tie"></i
+          ><a href="#" class="mx-2 text-black profile-link"
+            >Xem thông tin cá nhân</a
+          >
+        </p>
+        <p>
+          <i class="fa-regular fa-arrow-right-from-bracket"></i
+          ><a href="#" class="mx-2 text-black logout-link">Đăng xuất</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</nav>

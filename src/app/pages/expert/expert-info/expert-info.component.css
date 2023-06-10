@@ -1,0 +1,22 @@
+:host ::ng-deep .p-card {
+  height: 100%;
+}
+
+:host ::ng-deep .p-rating span {
+  color: #ffcd29 !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+#rectangle {
+  height: 20px;
+  width: 10px;
+  background: blue;
+  border-radius: 35%;
+}
+
+body {
+  background: #d3d3d329;
+}

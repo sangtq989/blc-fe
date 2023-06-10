@@ -1,0 +1,731 @@
+<div class="account-pages my-5 pt-sm-1">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="card overflow-hidden p-0" style="width: 700px">
+        <div class="bg-soft bg-primary">
+          <div class="row">
+            <div class="col-7">
+              <div class="text-primary p-4">
+                <h5 class="text-primary">Welcome Back !</h5>
+                <p>Sign in to continue to Skote.</p>
+              </div>
+            </div>
+            <div class="col-5 align-self-end">
+              <img
+                src="assets/images/profile-img.png"
+                alt=""
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-0">
+          <div>
+            <a routerLink="/">
+              <div class="avatar-md profile-user-wid mb-4">
+                <span class="avatar-title rounded-circle bg-light">
+                  <img
+                    src="assets/images/logo-kma.png"
+                    alt=""
+                    class="rounded-circle"
+                    height="34"
+                    style="position: absolute; top: 0"
+                    (click)="goToLandingPage()"  
+                  />
+                </span>
+              </div>
+            </a>
+          </div>
+          <div class="p-2">
+            <form class="form-horizontal" *ngIf="signUpForm">
+              <div class="row mb-3">
+                <span class="text-center fs-3 mb-3"><b>Đăng ký</b></span>
+                <span *ngIf="role == 'expert'" class="text-center"
+                  >Tạo tài khoản với vai trò là Chuyên gia về an toàn thông
+                  tin</span
+                >
+                <span *ngIf="role == 'user'" class="text-center"
+                  >Tạo tài khoản với vai trò là khách hàng</span
+                >
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Tên tài khoản</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Tên tài khoản"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Mật khẩu</label>
+                <div class="input-group auth-pass-inputgroup">
+                  <input
+                    class="form-control"
+                    placeholder="Mật khẩu"
+                    type="password"
+                    id="password"
+                  />
+                </div>
+              </div>
+
+              <div class="mt-3 mb-3 d-grid">
+                <p-button label="Đăng ký" (click)="register()"></p-button>
+              </div>
+
+              <div class="row mb-3">
+                <span class="text-center"
+                  >Bạn đã có tài khoản ?
+                  <b
+                    ><a class="text-black" routerLink="/auth/login">Đăng nhập</a></b
+                  ></span
+                >
+              </div>
+            </form>
+
+            <form *ngIf="certForm">
+              <div class="row mb-3">
+                <span class="text-center fs-3 mb-3"><b>Xác thực Email</b></span>
+                <span class="text-center"
+                  >Xin chào, email chứa mã xác thực đã được gửi tới địa chỉ
+                  email của bạn. Vui lòng kiểm tra email và nhập mã xác
+                  thực</span
+                >
+              </div>
+
+              <div class="mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Mã xác thực"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <p-button
+                  label="Gửi mã xác thực"
+                  (click)="onVerifyEmail()"
+                ></p-button>
+              </div>
+
+              <div class="row mb-3">
+                <span class="text-center"
+                  >Nếu chưa nhận được mã xác thực, vui lòng bấm
+                  <b
+                    ><a class="text-black" routerLink="/login">Gửi lại</a></b
+                  ></span
+                >
+              </div>
+            </form>
+
+            <div class="row mb-3" *ngIf="connectMetamask">
+              <div class="row mb-3">
+                <span class="text-center fs-3 mb-3"
+                  ><b>Kết nối ví Metamask !</b></span
+                >
+                <span class="text-center"
+                  >Để có tài khoản trên hệ thống an toàn của chúng tôi, hãy thực
+                  hiện kết nối tới ví Metamask. Chúng tôi đảm bảo bạn lưu trữ
+                  khóa riêng tư hoặc cụm từ khóa mật mã của bạn một cách an
+                  toàn. Chắc chắn thông tin của bạn sẽ không được chia sẻ với
+                  bất kì ai.</span
+                >
+              </div>
+
+              <div class="row mb-3">
+                <img
+                  src="../../assets/images/metamask.svg"
+                  style="height: 150px"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <p-button
+                  label="Kết nối ví Metamask"
+                  (click)="onSubmitGeneralProfile()"
+                ></p-button>
+              </div>
+            </div>
+
+            <form *ngIf="generalInfoForm">
+              <div class="row mb-3">
+                <span class="text-center fs-3 mb-3"><b>Chào mừng !</b></span>
+                <span class="text-center"
+                  >Hãy bắt đầu tài khoản của bạn bằng cách tạo thông tin cá
+                  nhân</span
+                >
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Họ tên</label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Họ và tên"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Giới tính</label>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    name="flexRadioDefault"
+                  />
+                  <label class="form-check-label" for="html">Nam</label>
+                </div>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    name="flexRadioDefault"
+                  />
+                  <label class="form-check-label" for="html">Nữ</label>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Ngày sinh</label>
+
+                <input type="date" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Số điện thoại</label>
+
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Số điện thoại"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Địa chỉ</label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Mã xác thực"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Giới thiệu</label>
+                <div>
+                  <textarea
+                    rows="5"
+                    style="width: 100%"
+                    pInputTextarea
+                    [(ngModel)]="user.desc"
+                    [ngModelOptions]="{ standalone: true }"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <p-button
+                  label="Tiếp tục"
+                  (click)="onSubmitGeneralProfile()"
+                ></p-button>
+              </div>
+            </form>
+
+            <form class="form-horizontal" *ngIf="locationWrkForm">
+              <div class="row mb-3">
+                <span class="text-center fs-3 mb-3"
+                  ><b>Địa điểm bạn đang làm việc</b></span
+                >
+                <span *ngIf="role == 'expert'" class="text-center"
+                  >Để các tổ chức/ công ty gần bạn có thể tìm kiếm bạn dễ dàng
+                  hơn.</span
+                >
+                <span *ngIf="role == 'user'" class="text-center"
+                  >Tạo tài khoản với vai trò là khách hàng</span
+                >
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Quốc gia</label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Nhập quốc gia"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Thành phố</label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Nhập tên thành phố"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <p-button
+                  label="Tiếp tục"
+                  (click)="onSubmitLocationWrk()"
+                ></p-button>
+              </div>
+            </form>
+
+            <form class="form-horizontal" *ngIf="specializedInfoForm">
+              <div class="row mb-3">
+                <span class="text-center fs-3 mb-3"
+                  ><b>Thông tin chuyên ngành</b></span
+                >
+                <span *ngIf="role == 'expert'" class="text-center"
+                  >Để các tổ chức có thể biết thêm về bạn. Hãy chia sẻ với chúng
+                  tôi về kỹ năng, kiến thức và chuyên môn đáng chú ý.</span
+                >
+                <span *ngIf="role == 'user'" class="text-center"
+                  >Tạo tài khoản với vai trò là khách hàng</span
+                >
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Chuyên môn</label>
+                <div>
+                  <p-dropdown
+                    [options]="specialityList"
+                    [(ngModel)]="user.speciality"
+                    optionLabel="name"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Chọn chuyên môn"
+                  ></p-dropdown>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Số năm kinh nghiệm</label>
+
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Nhập số năm kinh nghiệm"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Kỹ năng</label>
+
+                <div>
+                  <p-dropdown
+                    [options]="specialityList"
+                    [(ngModel)]="user.speciality"
+                    optionLabel="name"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Chọn kỹ năng"
+                  ></p-dropdown>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Ngôn ngữ</label>
+                <div>
+                  <p-dropdown
+                    [options]="specialityList"
+                    [(ngModel)]="user.speciality"
+                    optionLabel="name"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Chọn ngôn ngữ"
+                  ></p-dropdown>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Thêm vào hồ sơ</label>
+
+                <hr />
+
+                <p
+                  class="fw-semibold"
+                  style="cursor: pointer"
+                  (click)="addExpWrk()"
+                >
+                  Thêm kinh nghiệm làm việc <i class="fa-regular fa-plus"></i>
+                </p>
+
+                <div class="row" *ngIf="user.expWrk && user.expWrk.length > 0">
+                  <hr />
+
+                  <div class="row mb-3" *ngFor="let item of user.expWrk">
+                    <div class="col-lg-2">
+                      <div
+                        style="height: 70px; width: 70px; background: #d9d9d9"
+                      ></div>
+                    </div>
+                    <div class="col-lg-10">
+                      <p>{{ item[1] }}</p>
+                      <p>{{ item[2] }}</p>
+                      <p>{{ item[3] }}</p>
+                    </div>
+
+                    <hr />
+                  </div>
+                </div>
+
+                <p
+                  class="fw-semibold"
+                  style="cursor: pointer"
+                  (click)="addDegree()"
+                >
+                  Thêm chứng chỉ, bằng cấp <i class="fa-regular fa-plus"></i>
+                </p>
+
+                <div
+                  class="row mb-3"
+                  *ngIf="user.degree && user.degree.length > 0"
+                >
+                  <hr />
+
+                  <div class="row mb-3" *ngFor="let item of user.degree">
+                    <div class="col-lg-2">
+                      <div
+                        style="height: 70px; width: 70px; background: #d9d9d9"
+                      ></div>
+                    </div>
+                    <div class="col-lg-10">
+                      <p>{{ item[1] }}</p>
+                      <p>{{ item[2] }}</p>
+                      <p>{{ item[3] }}</p>
+                    </div>
+
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <p-button
+                  label="Lưu hồ sơ"
+                  (click)="onSubmitSpecializedInfo()"
+                ></p-button>
+              </div>
+            </form>
+
+            <form class="form-horizontal" *ngIf="expWrkForm">
+              <div class="row mb-3 align-items-center">
+                <div class="col-lg-1">
+                  <i
+                    class="fa fa-arrow-left"
+                    style="cursor: pointer"
+                    (click)="onBackSpecializedForm()"
+                  ></i>
+                </div>
+                <div class="col-lg-10 text-center">
+                  <span class="fs-3 mb-3"
+                    ><b>Thêm kinh nghiệm làm việc</b></span
+                  >
+                </div>
+                <div class="col-lg-1"></div>
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Tên vị trí</label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Ví dụ: Chuyên gia SOC"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Hình thức làm việc</label>
+
+                <div>
+                  <p-dropdown
+                    [options]="specialityList"
+                    [(ngModel)]="user.speciality"
+                    optionLabel="name"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Chọn hình thức làm việc"
+                  ></p-dropdown>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Tên công ty</label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Ví dụ: Viettel"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Địa chỉ</label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Ví dụ: Hà Đông, Hà Nội"
+                />
+              </div>
+
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckIndeterminateDisabled"
+                />
+                <label
+                  class="form-check-label"
+                  for="flexCheckIndeterminateDisabled"
+                >
+                  Công việc hiện tại
+                </label>
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Ngày bắt đầu</label>
+
+                <input type="month" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Ngày kết thúc</label>
+
+                <input type="month" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Mô tả công việc</label>
+                <div>
+                  <textarea
+                    rows="5"
+                    style="width: 100%"
+                    pInputTextarea
+                    [(ngModel)]="user.desc"
+                    [ngModelOptions]="{ standalone: true }"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <p-button label="Lưu" (click)="onSubmitExpWrk()"></p-button>
+              </div>
+            </form>
+
+            <form class="form-horizontal" *ngIf="degreeForm">
+              <div class="row mb-3">
+                <div class="col-lg-1">
+                  <i
+                    class="fa fa-arrow-left"
+                    style="cursor: pointer"
+                    (click)="onBackSpecializedForm()"
+                  ></i>
+                </div>
+                <div class="col-lg-10 text-center">
+                  <span class="fs-3 mb-3"
+                    ><b>TThêm chứng chỉ/ bằng cấp</b></span
+                  >
+                </div>
+                <div class="col-lg-1"></div>
+              </div>
+
+              <div class="mb-3">
+                <label class="mb-2">Loại</label>
+
+                <p-dropdown
+                  [options]="degreeTypeList"
+                  [(ngModel)]="user.degreeType"
+                  optionLabel="label"
+                  optionValue="value"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="Chọn loại chứng chỉ"
+                ></p-dropdown>
+              </div>
+
+              <div *ngIf="user.degreeType == 'E'">
+                <div class="mb-3">
+                  <label class="mb-2">Tên trường</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: Học viện kỹ thuật mật mã"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Chuyên ngành</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: Chuyên ngành"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Bằng cấp</label>
+
+                  <p-dropdown
+                    [options]="specialityList"
+                    [(ngModel)]="user.speciality"
+                    optionLabel="name"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Chọn loại bằng cấp"
+                  ></p-dropdown>
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Ngày bắt đầu</label>
+
+                  <input type="month" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Ngày kết thúc</label>
+
+                  <input type="month" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">GPA</label>
+
+                  <input type="number" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Mô tả</label>
+                  <div>
+                    <textarea
+                      rows="5"
+                      style="width: 100%"
+                      pInputTextarea
+                      [(ngModel)]="user.desc"
+                      [ngModelOptions]="{ standalone: true }"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="user.degreeType == 'L'">
+                <div class="mb-3">
+                  <label class="mb-2">Tên chứng chỉ</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: Certified Ethical Hacker (CEH)"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Tổ chức phát hành</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: EC_Councli"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Ngày bắt đầu</label>
+
+                  <input type="month" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Ngày kết thúc</label>
+
+                  <input type="month" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Mã chứng chỉ</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: EC_Councli"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Chứng chỉ URL</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: EC_Councli"
+                  />
+                </div>
+              </div>
+
+              <div *ngIf="user.degreeType == 'C'">
+                <div class="mb-3">
+                  <label class="mb-2">Tên</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: Cybersecurity Fundamentals"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Tổ chức</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: SANS Institute"
+                  />
+                </div>
+              </div>
+
+              <div *ngIf="user.degreeType == 'H'">
+                <div class="mb-3">
+                  <label class="mb-2">Tên</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: Giải thưởng an toàn thông tin Pwnie"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Tổ chức</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ví dụ: Pwnie Express"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="mb-2">Thời gian phát hành</label>
+
+                  <input type="month" class="form-control" />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <p-button label="Lưu" (click)="onSubmitDegree()"></p-button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- end container -->
+</div>
+<!-- end page -->
