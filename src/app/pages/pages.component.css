@@ -1,0 +1,11 @@
+.pages{
+  padding: 50px 0;
+  background: rgba(246, 246, 246, 1);
+  height: 100%
+}
+::ng-deep .p-rating .p-rating-icon.pi-star-fill {
+  color: yellow !important;
+}
+::ng-deep .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-icon:hover{
+  color: yellow !important;
+}

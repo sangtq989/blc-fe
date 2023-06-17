@@ -9,15 +9,23 @@ import { DropdownModule } from 'primeng/dropdown';
 import { LayoutsModule } from '../layouts/layouts.module';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+import { RatingModule } from 'primeng/rating';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { HomeComponent } from './home/home.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DialogModule } from 'primeng/dialog';
 import { AddProfileFormComponent } from './add-profile-form/add-profile-form.component';
 import { CommonsModule } from './commons/commons.module';
+import { ExpertListComponent } from './expert-list/expert-list.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
     PagesComponent,
     HomeComponent,
     AddProfileFormComponent,
+    ExpertListComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +38,10 @@ import { CommonsModule } from './commons/commons.module';
     FormsModule,
     TableModule,
     CommonsModule,
+    RatingModule,
+    SelectButtonModule,
+    FileUploadModule,
+    DialogModule,
   ],
 })
 export class PagesModule {}

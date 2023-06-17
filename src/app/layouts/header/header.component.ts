@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Cookie } from 'ng2-cookies';
+import { AuthConstant } from '../../constants/auth.constant';
 import { AuthenticationService } from 'src/app/services/common/authentication.service';
 import { AuthenticationUtil } from 'src/app/utils/authentication.util';
 
@@ -10,7 +13,10 @@ import { AuthenticationUtil } from 'src/app/utils/authentication.util';
 export class HeaderComponent implements OnInit {
   login: any = false;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     if (AuthenticationUtil.isLoggedIn()) {
@@ -38,5 +44,10 @@ export class HeaderComponent implements OnInit {
     console.log(dropdownProfile);
 
     dropdownProfile?.classList.toggle('active');
+  }
+
+  onLogout() {
+    Cookie.delete(AuthConstant.ACCESS_TOKEN_KEY);
+    this.router.navigate(['/home']);
   }
 }
