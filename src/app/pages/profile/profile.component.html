@@ -42,23 +42,15 @@
             [draggable]="false"
             [resizable]="false"
           >
-            <div class="flex justify-between mb-3">
-              <span class="text-xl">Contact Info</span>
-              <img
-                src="../../../assets/images/icons-edit.png"
-                alt="icon edit"
-              />
-            </div>
+            <div class="text-xl">Contact Info</div>
             <div class="flex items-start mb-3">
               <img
                 src="../../../assets/images/icons/icons-linkedin.png"
                 alt="linkedin"
               />
               <div style="margin-left: 10px">
-                <div>Your Profile</div>
-                <a href="https://www.linkedin.com/feed/"
-                  >https://www.linkedin.com/feed/</a
-                >
+                <div>Your Phone</div>
+                <div>{{ inforExperts.userInfo.phone }}</div>
               </div>
             </div>
             <div class="flex items-start mb-3">
@@ -68,7 +60,9 @@
               />
               <div style="margin-left: 10px">
                 <div>Email</div>
-                <a href="mailto:thiennt@gmail.com">thiennt@gmail.com</a>
+                <a href="mailto:thiennt@gmail.com">{{
+                  inforExperts.userInfo.email
+                }}</a>
               </div>
             </div>
             <div class="flex items-start mb-3">
@@ -78,7 +72,7 @@
               />
               <div style="margin-left: 10px">
                 <div>Birthday</div>
-                <span>June 14</span>
+                <span>{{ inforExperts.userInfo.dateOfBirth }}</span>
               </div>
             </div>
           </p-dialog>
@@ -181,7 +175,12 @@
         <div class="mark"></div>
         <span class="title">Kinh nghiệm - Vị trí làm việc</span>
       </div>
-      <img src="../../../assets/images/icons/icons-plus.png" alt="icon plus" />
+      <img
+        (click)="visibleExp = !visibleExp"
+        class="cursor-pointer"
+        src="../../../assets/images/icons/icons-plus.png"
+        alt="icon plus"
+      />
     </div>
 
     <div *ngIf="!openAllExp" class="mt-6 exp-content">
@@ -250,7 +249,12 @@
         <div class="mark"></div>
         <span class="title">Học vấn</span>
       </div>
-      <img src="../../../assets/images/icons/icons-plus.png" alt="icon plus" />
+      <img
+        (click)="visibleEdu = !visibleEdu"
+        class="cursor-pointer"
+        src="../../../assets/images/icons/icons-plus.png"
+        alt="icon plus"
+      />
     </div>
 
     <div
@@ -506,4 +510,15 @@
       </div>
     </div>
   </div>
+
+  <app-experience-popup
+    [visible]="visibleExp"
+    (newExpEvent)="addNewExp($event)"
+    (closeEvent)="closeExpPopup()"
+  ></app-experience-popup>
+  <app-edu-popup
+    [visible]="visibleEdu"
+    (newEduEvent)="addNewEdu($event)"
+    (closeEvent)="closeEduPopup()"
+  ></app-edu-popup>
 </div>

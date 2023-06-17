@@ -1,0 +1,68 @@
+<p-dialog
+  header="Thêm học vấn"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '30vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeEduPopup()"
+>
+  <p>Tên trường/ học viện *</p>
+  <input
+    class="w-100"
+    type="text"
+    [(ngModel)]="uniName"
+    placeholder="Ví dụ: Chuyên gia SOC"
+    pInputText
+  />
+
+  <p>Chuyên nghành *</p>
+  <input
+    class="w-100"
+    type="text"
+    placeholder="Ví dụ: Viettel"
+    pInputText
+    [(ngModel)]="major"
+  />
+  <p>Bằng cấp *</p>
+  <p-dropdown
+    [options]="listDegreeType"
+    [style]="{ width: '100%' }"
+    optionLabel="name"
+    [(ngModel)]="degree"
+  ></p-dropdown>
+
+  <p>Thời gian bắt đầu *</p>
+  <p-calendar
+    view="month"
+    [style]="{ width: '100%' }"
+    dateFormat="mm/yy"
+    [readonlyInput]="true"
+    [(ngModel)]="startDate"
+  ></p-calendar>
+
+  <p>Thời gian kết thúc *</p>
+  <p-calendar
+    view="month"
+    [style]="{ width: '100%' }"
+    dateFormat="mm/yy"
+    [(ngModel)]="endDate"
+    [readonlyInput]="true"
+  ></p-calendar>
+
+  <p>GPAh *</p>
+  <input class="w-100" type="text" pInputText [(ngModel)]="gpa" />
+
+  <p>Mô tả</p>
+  <textarea
+    class="w-100"
+    rows="3"
+    cols="20"
+    pInputTextarea
+    placeholder="Nhập mô tả"
+    [(ngModel)]="description"
+  ></textarea>
+  <div class="flex justify-center">
+    <p-button (click)="addNewEdu()">Gửi</p-button>
+  </div>
+</p-dialog>

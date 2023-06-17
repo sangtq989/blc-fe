@@ -14,10 +14,16 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { HomeComponent } from './home/home.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DialogModule } from 'primeng/dialog';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AddProfileFormComponent } from './add-profile-form/add-profile-form.component';
 import { CommonsModule } from './commons/commons.module';
 import { ExpertListComponent } from './expert-list/expert-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ExperiencePopupComponent } from './profile/experience-popup/experience-popup.component';
+import { EduPopupComponent } from './profile/edu-popup/edu-popup.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +32,8 @@ import { ProfileComponent } from './profile/profile.component';
     AddProfileFormComponent,
     ExpertListComponent,
     ProfileComponent,
+    ExperiencePopupComponent,
+    EduPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +50,10 @@ import { ProfileComponent } from './profile/profile.component';
     SelectButtonModule,
     FileUploadModule,
     DialogModule,
+    CalendarModule,
+    InputTextareaModule,
+    CheckboxModule,
+    InputNumberModule,
   ],
 })
 export class PagesModule {}

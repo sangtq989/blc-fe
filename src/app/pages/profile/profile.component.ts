@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { getProfiles } from './apis/api';
+import { DialogModule } from 'primeng/dialog';
+import { ExperiencePopupComponent } from './experience-popup/experience-popup.component';
+import { log } from 'console';
 
 @Component({
   selector: 'app-profile',
@@ -7,7 +10,7 @@ import { getProfiles } from './apis/api';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  constructor() {}
+  constructor(public dialog: DialogModule) {}
   value: number = 4.8;
   visible: boolean = false;
   selectedStatus: any;
@@ -25,6 +28,8 @@ export class ProfileComponent implements OnInit {
   openAllSkills: boolean = false;
   inforExperts: any;
   seeMore: boolean = true;
+  visibleExp: boolean = false;
+  visibleEdu: boolean = false;
   content: string =
     'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit';
   ngOnInit(): void {
@@ -196,6 +201,9 @@ export class ProfileComponent implements OnInit {
         ],
       },
       userInfo: {
+        phone: '',
+        email: '',
+        dateOfBirth: '1992-12-31',
         firstName: 'Admin',
         lastName: 'lastnema',
         jobTitle: 'Phân tích mã độc',
@@ -205,5 +213,20 @@ export class ProfileComponent implements OnInit {
         location: 'Hà Nội, Việt nam',
       },
     };
+  }
+
+  addNewExp(e: any) {
+    console.log('eeee', e);
+  }
+
+  closeExpPopup() {
+    this.visibleExp = false;
+  }
+  addNewEdu(e: any) {
+    console.log('eeee', e);
+  }
+
+  closeEduPopup() {
+    this.visibleEdu = false;
   }
 }
