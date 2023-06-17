@@ -18,6 +18,7 @@ export class ExperiencePopupComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   jobDesc: string = '';
+  errorMessage: boolean = false;
   listEmployeeType: any = [
     { name: 'Full Time', value: 'Full Time' },
     { name: 'Part Time', value: 'Part Time' },
@@ -37,7 +38,11 @@ export class ExperiencePopupComponent implements OnInit {
       jobDesc: this.jobDesc,
       positionName: this.positionName,
     };
-    this.newExpEvent.emit(payload);
+    if (!this.positionName || !this.companyName || !this.startDate) {
+      this.errorMessage = true;
+    } else {
+      this.newExpEvent.emit(payload);
+    }
   }
   closeExpPopup() {
     this.closeEvent.emit();

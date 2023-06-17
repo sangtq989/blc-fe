@@ -30,6 +30,10 @@ export class ProfileComponent implements OnInit {
   seeMore: boolean = true;
   visibleExp: boolean = false;
   visibleEdu: boolean = false;
+  visibleLicenses: boolean = false;
+  visibleAwards: boolean = false;
+  visibleCourses: boolean = false;
+  visibleSkills: boolean = false;
   content: string =
     'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit';
   ngOnInit(): void {
@@ -228,5 +232,33 @@ export class ProfileComponent implements OnInit {
 
   closeEduPopup() {
     this.visibleEdu = false;
+  }
+  addNewLicenses(e: any) {
+    console.log('eeee', e);
+  }
+
+  closeLicensesPopup() {
+    this.visibleLicenses = false;
+  }
+  addNewAward(e: any) {
+    console.log('eeee', e);
+  }
+
+  closeAwardPopup() {
+    this.visibleAwards = false;
+  }
+  addNewCourse(e: any) {
+    console.log('eeee', e);
+  }
+
+  closeCoursePopup() {
+    this.visibleCourses = false;
+  }
+  addNewSkill(e: any) {
+    console.log('eeee', e);
+  }
+
+  closeSkillPopup() {
+    this.visibleSkills = false;
   }
 }

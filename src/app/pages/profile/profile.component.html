@@ -274,7 +274,12 @@
         <div class="mark"></div>
         <span class="title">Chứng chỉ/ Bằng cấp</span>
       </div>
-      <img src="../../../assets/images/icons/icons-plus.png" alt="icon plus" />
+      <img
+        (click)="visibleLicenses = !visibleLicenses"
+        class="cursor-pointer"
+        src="../../../assets/images/icons/icons-plus.png"
+        alt="icon plus"
+      />
     </div>
 
     <div *ngIf="!openAllLiense" class="mt-6 certificate-content">
@@ -334,7 +339,12 @@
         <div class="mark"></div>
         <span class="title">Danh hiệu và Giải thưởng</span>
       </div>
-      <img src="../../../assets/images/icons/icons-plus.png" alt="icon plus" />
+      <img
+        class="cursor-pointer"
+        (click)="visibleAwards = !visibleAwards"
+        src="../../../assets/images/icons/icons-plus.png"
+        alt="icon plus"
+      />
     </div>
     <div *ngIf="!openAllAwards" class="mt-6 awards-content">
       <div>{{inforExperts?.metadata?.CERT_AWARD?.[0]?.awardName}}</div>
@@ -377,7 +387,12 @@
         <div class="mark"></div>
         <span class="title">Kĩ năng</span>
       </div>
-      <img src="../../../assets/images/icons/icons-plus.png" alt="icon plus" />
+      <img
+        class="cursor-pointer"
+        (click)="visibleSkills = !visibleSkills"
+        src="../../../assets/images/icons/icons-plus.png"
+        alt="icon plus"
+      />
     </div>
     <div *ngIf="openAllSkills" class="mt-6 skills-content">
       <div *ngFor="let speciality of inforExperts?.metadata?.SPECIALTY">
@@ -478,7 +493,12 @@
         <div class="mark"></div>
         <span class="title">Khoá học</span>
       </div>
-      <img src="../../../assets/images/icons/icons-plus.png" alt="icon plus" />
+      <img
+        class="cursor-pointer"
+        (click)="visibleCourses = !visibleCourses"
+        src="../../../assets/images/icons/icons-plus.png"
+        alt="icon plus"
+      />
     </div>
     <div class="mt-6 courses-content" *ngIf="!openAllCourses">
       <div>{{ inforExperts?.metadata?.CERT_COURSE?.[0]?.courseName }}</div>
@@ -521,4 +541,24 @@
     (newEduEvent)="addNewEdu($event)"
     (closeEvent)="closeEduPopup()"
   ></app-edu-popup>
+  <app-licenses-popup
+    [visible]="visibleLicenses"
+    (newLicensesEvent)="addNewLicenses($event)"
+    (closeEvent)="closeLicensesPopup()"
+  ></app-licenses-popup>
+  <app-awards-popup
+    [visible]="visibleAwards"
+    (newAwardEvent)="addNewAward($event)"
+    (closeEvent)="closeAwardPopup()"
+  ></app-awards-popup>
+  <app-courses-popup
+    [visible]="visibleCourses"
+    (newCoursesEvent)="addNewCourse($event)"
+    (closeEvent)="closeCoursePopup()"
+  ></app-courses-popup>
+  <app-skills-popup
+    [visible]="visibleSkills"
+    (newSkillsEvent)="addNewSkill($event)"
+    (closeEvent)="closeSkillPopup()"
+  ></app-skills-popup>
 </div>

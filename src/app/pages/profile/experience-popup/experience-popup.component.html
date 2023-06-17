@@ -72,6 +72,9 @@
     pInputTextarea
     [(ngModel)]="jobDesc"
   ></textarea>
+  <div style="color: red" *ngIf="errorMessage">
+    Vui lòng điền đầy đủ thông tin cần thiết!
+  </div>
   <div class="flex justify-center">
     <p-button (click)="addNewExp()">Gửi</p-button>
   </div>

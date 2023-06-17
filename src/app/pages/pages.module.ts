@@ -22,8 +22,14 @@ import { AddProfileFormComponent } from './add-profile-form/add-profile-form.com
 import { CommonsModule } from './commons/commons.module';
 import { ExpertListComponent } from './expert-list/expert-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ChipsModule } from 'primeng/chips';
 import { ExperiencePopupComponent } from './profile/experience-popup/experience-popup.component';
 import { EduPopupComponent } from './profile/edu-popup/edu-popup.component';
+import { LicensesPopupComponent } from './profile/licenses-popup/licenses-popup.component';
+import { AwardsPopupComponent } from './profile/awards-popup/awards-popup.component';
+import { CoursesPopupComponent } from './profile/courses-popup/courses-popup.component';
+import { SkillsPopupComponent } from './profile/skills-popup/skills-popup.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +40,10 @@ import { EduPopupComponent } from './profile/edu-popup/edu-popup.component';
     ProfileComponent,
     ExperiencePopupComponent,
     EduPopupComponent,
+    LicensesPopupComponent,
+    AwardsPopupComponent,
+    CoursesPopupComponent,
+    SkillsPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -54,6 +64,8 @@ import { EduPopupComponent } from './profile/edu-popup/edu-popup.component';
     InputTextareaModule,
     CheckboxModule,
     InputNumberModule,
+    MultiSelectModule,
+    ChipsModule,
   ],
 })
 export class PagesModule {}

@@ -12,7 +12,7 @@
     class="w-100"
     type="text"
     [(ngModel)]="uniName"
-    placeholder="Ví dụ: Chuyên gia SOC"
+    placeholder="Ví dụ: Học việc kỹ thuật mật mã"
     pInputText
   />
 
@@ -20,7 +20,7 @@
   <input
     class="w-100"
     type="text"
-    placeholder="Ví dụ: Viettel"
+    placeholder="Ví dụ: An toàn thông tin"
     pInputText
     [(ngModel)]="major"
   />
@@ -50,7 +50,7 @@
     [readonlyInput]="true"
   ></p-calendar>
 
-  <p>GPAh *</p>
+  <p>GPA *</p>
   <input class="w-100" type="text" pInputText [(ngModel)]="gpa" />
 
   <p>Mô tả</p>
@@ -62,6 +62,9 @@
     placeholder="Nhập mô tả"
     [(ngModel)]="description"
   ></textarea>
+  <div style="color: red" *ngIf="errorMessage">
+    Vui lòng điền đầy đủ thông tin cần thiết!
+  </div>
   <div class="flex justify-center">
     <p-button (click)="addNewEdu()">Gửi</p-button>
   </div>

@@ -17,6 +17,7 @@ export class EduPopupComponent implements OnInit {
   degree: string = '';
   uniName: string = '';
   type: string = '';
+  errorMessage: boolean = false;
   listDegreeType: any = [
     { name: 'Cử nhân', value: 'Cử nhân' },
     { name: 'Kỹ sư', value: 'Kỹ sư' },
@@ -38,7 +39,11 @@ export class EduPopupComponent implements OnInit {
       gpa: this.gpa,
       description: this.description,
     };
-    this.newEduEvent.emit(payload);
+    if (!this.uniName || !this.major || !this.degree || !this.startDate) {
+      this.errorMessage = true;
+    } else {
+      this.newEduEvent.emit(payload);
+    }
   }
 
   closeEduPopup() {
