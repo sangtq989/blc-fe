@@ -7,7 +7,7 @@
   [resizable]="false"
   (onHide)="closeSkillPopup()"
 >
-  <p>Chuyên môn *</p>
+  <p>Chuyên môn <span style="color: red">*</span></p>
   <p-multiSelect
     [style]="{ width: '100%' }"
     [options]="specialitiesList"
@@ -17,7 +17,7 @@
     display="chip"
   ></p-multiSelect>
 
-  <p>Số năm kinh nghiệm *</p>
+  <p>Số năm kinh nghiệm <span style="color: red">*</span></p>
   <input class="w-100" type="text" pInputText [(ngModel)]="yearOfExp" />
 
   <p>Kỹ năng</p>

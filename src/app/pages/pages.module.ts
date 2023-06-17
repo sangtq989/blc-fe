@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { LayoutsModule } from '../layouts/layouts.module';
 import { FormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -66,6 +67,7 @@ import { SkillsPopupComponent } from './profile/skills-popup/skills-popup.compon
     InputNumberModule,
     MultiSelectModule,
     ChipsModule,
+    ToastModule,
   ],
 })
 export class PagesModule {}

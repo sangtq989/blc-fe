@@ -7,7 +7,7 @@
   [resizable]="false"
   (onHide)="closeExpPopup()"
 >
-  <p>Tên vị trí *</p>
+  <p>Tên vị trí <span style="color: red">*</span></p>
   <input
     class="w-100"
     type="text"
@@ -22,7 +22,7 @@
     optionLabel="name"
     [(ngModel)]="employeeType"
   ></p-dropdown>
-  <p>Tên công ty *</p>
+  <p>Tên công ty <span style="color: red">*</span></p>
   <input
     class="w-100"
     type="text"
@@ -48,7 +48,7 @@
     <label for="sf">Công việc hiện tại</label>
   </div>
 
-  <p>Thời gian bắt đầu *</p>
+  <p>Thời gian bắt đầu <span style="color: red">*</span></p>
   <p-calendar
     view="month"
     [style]="{ width: '100%' }"
@@ -56,7 +56,7 @@
     [readonlyInput]="true"
     [(ngModel)]="startDate"
   ></p-calendar>
-  <p>Thời gian kết thúc *</p>
+  <p>Thời gian kết thúc</p>
   <p-calendar
     view="month"
     [style]="{ width: '100%' }"
@@ -64,7 +64,7 @@
     [(ngModel)]="endDate"
     [readonlyInput]="true"
   ></p-calendar>
-  <p>Mô tả công việc *</p>
+  <p>Mô tả công việc</p>
   <textarea
     class="w-100"
     rows="3"

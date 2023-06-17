@@ -33,8 +33,8 @@ export class ExperiencePopupComponent implements OnInit {
       companyName: this.companyName,
       currentJob: this.currentJob,
       employeeType: JSON.parse(JSON.stringify(this.employeeType)).name,
-      endTime: moment(this.endDate).format('YYYY-MM'),
-      startTime: moment(this.startDate).format('YYYY-MM'),
+      endDate: moment(this.endDate).format('YYYY-MM'),
+      startDate: moment(this.startDate).format('YYYY-MM'),
       jobDesc: this.jobDesc,
       positionName: this.positionName,
     };
@@ -42,6 +42,13 @@ export class ExperiencePopupComponent implements OnInit {
       this.errorMessage = true;
     } else {
       this.newExpEvent.emit(payload);
+      this.positionName = '';
+      this.companyName = '';
+      this.companyAddress = '';
+      this.currentJob = false;
+      this.endDate = '';
+      this.startDate = '';
+      this.jobDesc = '';
     }
   }
   closeExpPopup() {

@@ -7,7 +7,7 @@
   [resizable]="false"
   (onHide)="closeAwardPopup()"
 >
-  <p>Tên *</p>
+  <p>Tên <span style="color: red">*</span></p>
   <input
     class="w-100"
     type="text"
@@ -16,7 +16,7 @@
     pInputText
   />
 
-  <p>Tổ chức *</p>
+  <p>Tổ chức</p>
   <input
     class="w-100"
     type="text"
@@ -25,7 +25,7 @@
     [(ngModel)]="awardOrg"
   />
 
-  <p>Thời gian phát hành *</p>
+  <p>Thời gian phát hành <span style="color: red">*</span></p>
   <p-calendar
     view="month"
     [style]="{ width: '100%' }"

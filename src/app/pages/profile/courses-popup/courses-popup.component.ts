@@ -27,6 +27,9 @@ export class CoursesPopupComponent implements OnInit {
       this.errorMessage = true;
     } else {
       this.newCoursesEvent.emit(payload);
+      this.courseName = '';
+      this.courseProvider = '';
+      this.errorMessage = false;
     }
   }
 

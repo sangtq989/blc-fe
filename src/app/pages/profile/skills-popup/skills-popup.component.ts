@@ -13,7 +13,7 @@ export class SkillsPopupComponent implements OnInit {
   specialities: string[] | undefined;
   skills: string[] | undefined;
   languages: string[] | undefined;
-  yearOfExp: number = 0;
+  yearOfExp: number | undefined;
   errorMessage: boolean = false;
   specialitiesList: any = [
     { name: 'Ứng cứu sự cố', code: 'Ứng cứu sự cố' },
@@ -30,7 +30,7 @@ export class SkillsPopupComponent implements OnInit {
 
   addNewSkill() {
     const payload: any = {
-      yearOfExp: this.yearOfExp,
+      yearOfExp: Number(this.yearOfExp),
       specialities: this.specialities?.map(
         (item) => JSON.parse(JSON.stringify(item)).name
       ),
@@ -41,6 +41,10 @@ export class SkillsPopupComponent implements OnInit {
       this.errorMessage = true;
     } else {
       this.newSkillsEvent.emit(payload);
+      this.yearOfExp = undefined;
+      this.specialities = [];
+      this.skills = [];
+      this.languages = [];
     }
   }
 

@@ -29,6 +29,9 @@ export class AwardsPopupComponent implements OnInit {
       this.errorMessage = true;
     } else {
       this.newAwardEvent.emit(payload);
+      this.awardName = '';
+      this.awardOrg = '';
+      this.publishDate = '';
     }
   }
 

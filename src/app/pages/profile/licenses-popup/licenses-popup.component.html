@@ -7,7 +7,7 @@
   [resizable]="false"
   (onHide)="closeLicensesPopup()"
 >
-  <p>Tên chứng chỉ *</p>
+  <p>Tên chứng chỉ <span style="color: red">*</span></p>
   <input
     class="w-100"
     type="text"
@@ -16,7 +16,7 @@
     pInputText
   />
 
-  <p>Tên tổ chức phát hành *</p>
+  <p>Tên tổ chức phát hành <span style="color: red">*</span></p>
   <input
     class="w-100"
     type="text"
@@ -25,7 +25,7 @@
     [(ngModel)]="publisher"
   />
 
-  <p>Thời gian phát hành *</p>
+  <p>Thời gian phát hành <span style="color: red">*</span></p>
   <p-calendar
     view="month"
     [style]="{ width: '100%' }"
@@ -34,7 +34,7 @@
     [(ngModel)]="publishFrom"
   ></p-calendar>
 
-  <p>Thời gian hết hạn *</p>
+  <p>Thời gian hết hạn <span style="color: red">*</span></p>
   <p-calendar
     view="month"
     [style]="{ width: '100%' }"
@@ -43,7 +43,7 @@
     [readonlyInput]="true"
   ></p-calendar>
 
-  <p>Mã chứng chỉ *</p>
+  <p>Mã chứng chỉ <span style="color: red">*</span></p>
   <input
     class="w-100"
     type="text"
@@ -52,7 +52,7 @@
     pInputText
   />
 
-  <p>Chứng chỉ url *</p>
+  <p>Chứng chỉ url</p>
   <input
     class="w-100"
     type="text"

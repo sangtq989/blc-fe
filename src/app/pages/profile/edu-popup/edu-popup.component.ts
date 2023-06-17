@@ -43,6 +43,13 @@ export class EduPopupComponent implements OnInit {
       this.errorMessage = true;
     } else {
       this.newEduEvent.emit(payload);
+      this.uniName = '';
+      this.degree = '';
+      this.major = '';
+      this.endDate = '';
+      this.startDate = '';
+      this.gpa = '';
+      this.description = '';
     }
   }
 

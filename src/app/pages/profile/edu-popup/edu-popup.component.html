@@ -7,7 +7,7 @@
   [resizable]="false"
   (onHide)="closeEduPopup()"
 >
-  <p>Tên trường/ học viện *</p>
+  <p>Tên trường/ học viện <span style="color: red">*</span></p>
   <input
     class="w-100"
     type="text"
@@ -16,7 +16,7 @@
     pInputText
   />
 
-  <p>Chuyên nghành *</p>
+  <p>Chuyên nghành <span style="color: red">*</span></p>
   <input
     class="w-100"
     type="text"
@@ -24,7 +24,7 @@
     pInputText
     [(ngModel)]="major"
   />
-  <p>Bằng cấp *</p>
+  <p>Bằng cấp <span style="color: red">*</span></p>
   <p-dropdown
     [options]="listDegreeType"
     [style]="{ width: '100%' }"
@@ -32,7 +32,7 @@
     [(ngModel)]="degree"
   ></p-dropdown>
 
-  <p>Thời gian bắt đầu *</p>
+  <p>Thời gian bắt đầu <span style="color: red">*</span></p>
   <p-calendar
     view="month"
     [style]="{ width: '100%' }"
@@ -41,7 +41,7 @@
     [(ngModel)]="startDate"
   ></p-calendar>
 
-  <p>Thời gian kết thúc *</p>
+  <p>Thời gian kết thúc</p>
   <p-calendar
     view="month"
     [style]="{ width: '100%' }"
@@ -50,7 +50,7 @@
     [readonlyInput]="true"
   ></p-calendar>
 
-  <p>GPA *</p>
+  <p>GPA</p>
   <input class="w-100" type="text" pInputText [(ngModel)]="gpa" />
 
   <p>Mô tả</p>

@@ -43,6 +43,12 @@ export class LicensesPopupComponent implements OnInit {
       this.errorMessage = true;
     } else {
       this.newLicensesEvent.emit(payload);
+      this.licensesName = '';
+      this.publisher = '';
+      this.publishFrom = '';
+      this.publishTo = '';
+      this.licensesCode = '';
+      this.licensesUrl = '';
     }
   }
 

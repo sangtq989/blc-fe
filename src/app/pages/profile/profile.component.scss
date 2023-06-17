@@ -125,7 +125,7 @@
 
 .edu-content {
   font-family: 'Montserrat', sans-serif;
-
+  border-bottom: 1px solid #D2D2D2;
   & > div:first-child {
     font-weight: 500;
     font-size: 16px;
@@ -174,16 +174,18 @@
   font-size: 16px;
   line-height: 26px;
   color: #050505;
-  & > div:not(div:first-child){
-    border-top: 1px solid #D2D2D2;
-    margin-top: 5px;
-    padding-top: 5px;
+
+  & > div{
+    border-bottom: 1px solid #D2D2D2;
+    margin: 5px 0;
+    padding: 5px 0;
   }
 }
 
 .courses-content{
   font-family: 'Montserrat', sans-serif;
   color: #050505;
+  border-bottom: 1px solid #D2D2D2;
   & > div:first-child {
     font-weight: 500;
     font-size: 16px;

@@ -18,24 +18,24 @@
           class="text-xl font-semibold"
           style="font-family: 'Montserrat', sans-serif"
         >
-          {{ inforExperts.userInfo.firstName }}
-          {{ inforExperts.userInfo.lastName }}
+          {{ inforExperts?.userInfo.firstName }}
+          {{ inforExperts?.userInfo.lastName }}
         </p>
         <p
           class="text-[16px] font-medium"
           style="font-family: 'Montserrat', sans-serif"
         >
-          {{ inforExperts.userInfo.jobTitle }},
-          {{ inforExperts.userInfo.companyName }}
+          {{ inforExperts?.userInfo.jobTitle }},
+          {{ inforExperts?.userInfo.companyName }}
         </p>
         <div class="flex">
-          <span class="address">{{ inforExperts.userInfo.location }}</span>
+          <span class="address">{{ inforExperts?.userInfo.location }}</span>
           <span class="contact-btn" (click)="openContactInfo()"
             >Contact Info</span
           >
           <p-dialog
-            header="{{ inforExperts.userInfo.firstName }}
-            {{ inforExperts.userInfo.lastName }}"
+            header="{{ inforExperts?.userInfo.firstName }}
+            {{ inforExperts?.userInfo.lastName }}"
             [(visible)]="visible"
             [modal]="true"
             [style]="{ width: '50vw' }"
@@ -50,7 +50,7 @@
               />
               <div style="margin-left: 10px">
                 <div>Your Phone</div>
-                <div>{{ inforExperts.userInfo.phone }}</div>
+                <div>{{ inforExperts?.userInfo.phone }}</div>
               </div>
             </div>
             <div class="flex items-start mb-3">
@@ -61,7 +61,7 @@
               <div style="margin-left: 10px">
                 <div>Email</div>
                 <a href="mailto:thiennt@gmail.com">{{
-                  inforExperts.userInfo.email
+                  inforExperts?.userInfo.email
                 }}</a>
               </div>
             </div>
@@ -72,7 +72,7 @@
               />
               <div style="margin-left: 10px">
                 <div>Birthday</div>
-                <span>{{ inforExperts.userInfo.dateOfBirth }}</span>
+                <span>{{ inforExperts?.userInfo.dateOfBirth }}</span>
               </div>
             </div>
           </p-dialog>
@@ -82,14 +82,14 @@
       <div class="p-10 col-lg-3">
         <div class="flex items-center mb-3">
           <img src="../../../assets/images/clock.svg" alt="icon clock" />
-          <span class="exp">{{ inforExperts.userInfo.yearOfExp }} năm</span>
+          <span class="exp">{{ inforExperts?.userInfo.yearOfExp }} năm</span>
         </div>
         <div class="flex items-center">
           <img
             src="../../../assets/images/portfolio.svg"
             alt="icon portfolio"
           />
-          <span class="exp">{{ inforExperts.userInfo.skill?.[0] }}</span>
+          <span class="exp">{{ inforExperts?.userInfo.skill?.[0] }}</span>
         </div>
       </div>
     </div>
@@ -205,7 +205,7 @@
     <div *ngIf="openAllExp">
       <div
         class="mt-6 exp-content"
-        *ngFor="let exp of inforExperts.metadata.EXPERIENCE"
+        *ngFor="let exp of inforExperts?.metadata.EXPERIENCE"
       >
         <div>{{ exp?.positionName }}</div>
         <div>{{ exp?.employeeType }}</div>
@@ -257,13 +257,39 @@
       />
     </div>
 
+    <div *ngIf="!openAllEdus">
+      <div class="mt-6 edu-content">
+        <div>{{ inforExperts?.metadata.CERT_EDU?.[0]?.uniName }}</div>
+        <div>{{ inforExperts?.metadata.CERT_EDU?.[0]?.major }}</div>
+        <div>Cấp: {{ inforExperts?.metadata.CERT_EDU?.[0]?.degree }}</div>
+      </div>
+    </div>
+
+    <div *ngIf="openAllEdus">
+      <div
+        class="mt-6 edu-content"
+        *ngFor="let edus of inforExperts?.metadata.CERT_EDU"
+      >
+        <div>{{ edus?.uniName }}</div>
+        <div>{{ edus?.major }}</div>
+        <div>Cấp: {{ edus?.degree }}</div>
+      </div>
+    </div>
+
     <div
-      class="mt-6 edu-content"
-      *ngFor="let edus of inforExperts.metadata.CERT_EDU"
+      class="flex justify-center"
+      *ngIf="inforExperts?.metadata?.CERT_EDU.length > 1 && !openAllEdus"
+      (click)="openAllEdus = !openAllEdus"
     >
-      <div>{{ edus?.uniName }}</div>
-      <div>{{ edus?.major }}</div>
-      <div>Cấp: {{ edus?.degree }}</div>
+      <div class="flex items-center mark-see-more">
+        <div>
+          Xem tất cả {{ inforExperts?.metadata?.CERT_EDU.length }} học vấn
+        </div>
+        <img
+          src="../../../assets/images/icons/icons-right.png"
+          alt="icon right"
+        />
+      </div>
     </div>
   </div>
 
@@ -561,4 +587,5 @@
     (newSkillsEvent)="addNewSkill($event)"
     (closeEvent)="closeSkillPopup()"
   ></app-skills-popup>
+  <p-toast position="top-center"></p-toast>
 </div>
