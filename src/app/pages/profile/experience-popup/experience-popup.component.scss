@@ -1,0 +1,10 @@
+.input-data{
+  border: 1.5px solid rgba(16, 24, 40, 0.75);
+  padding: 8px;
+  border-radius: 5px;
+  & > input, & > select {
+    outline: none;
+    width: 100%;
+  }
+}
+

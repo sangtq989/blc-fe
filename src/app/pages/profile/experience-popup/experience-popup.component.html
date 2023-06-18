@@ -1,0 +1,81 @@
+<p-dialog
+  header="Thêm kinh nghiệm làm việc"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '30vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeExpPopup()"
+>
+  <p>Tên vị trí <span style="color: red">*</span></p>
+  <input
+    class="w-100"
+    type="text"
+    [(ngModel)]="positionName"
+    placeholder="Ví dụ: Chuyên gia SOC"
+    pInputText
+  />
+  <p>Hình thức làm việc</p>
+  <p-dropdown
+    [options]="listEmployeeType"
+    [style]="{ width: '100%' }"
+    optionLabel="name"
+    [(ngModel)]="employeeType"
+  ></p-dropdown>
+  <p>Tên công ty <span style="color: red">*</span></p>
+  <input
+    class="w-100"
+    type="text"
+    placeholder="Ví dụ: Viettel"
+    pInputText
+    [(ngModel)]="companyName"
+  />
+  <p>Địa chỉ</p>
+  <input
+    class="w-100"
+    type="text"
+    placeholder="Ví dụ: Cầu giấy - Hà Nội"
+    pInputText
+    [(ngModel)]="companyAddress"
+  />
+
+  <div class="flex gap-1 mt-2 align-items-center">
+    <p-checkbox
+      [(ngModel)]="currentJob"
+      [binary]="true"
+      inputId="binary"
+    ></p-checkbox>
+    <label for="sf">Công việc hiện tại</label>
+  </div>
+
+  <p>Thời gian bắt đầu <span style="color: red">*</span></p>
+  <p-calendar
+    view="month"
+    [style]="{ width: '100%' }"
+    dateFormat="mm/yy"
+    [readonlyInput]="true"
+    [(ngModel)]="startDate"
+  ></p-calendar>
+  <p>Thời gian kết thúc</p>
+  <p-calendar
+    view="month"
+    [style]="{ width: '100%' }"
+    dateFormat="mm/yy"
+    [(ngModel)]="endDate"
+    [readonlyInput]="true"
+  ></p-calendar>
+  <p>Mô tả công việc</p>
+  <textarea
+    class="w-100"
+    rows="3"
+    cols="20"
+    pInputTextarea
+    [(ngModel)]="jobDesc"
+  ></textarea>
+  <div style="color: red" *ngIf="errorMessage">
+    Vui lòng điền đầy đủ thông tin cần thiết!
+  </div>
+  <div class="flex justify-center">
+    <p-button (click)="addNewExp()">Gửi</p-button>
+  </div>
+</p-dialog>

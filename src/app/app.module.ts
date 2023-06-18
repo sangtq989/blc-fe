@@ -18,7 +18,7 @@ import { AuthGuard } from './guards/auth.guard';
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    LayoutsModule
+    LayoutsModule,
   ],
   providers: [
     AuthGuard,

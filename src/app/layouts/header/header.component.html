@@ -18,7 +18,7 @@
 
         <li>
           <span class="mx-2 fs-4" (click)="onNavgigate($event)"
-            ><a class="text-white" routerLink="/expert/detail">Chuyên gia</a></span
+            ><a class="text-white" routerLink="/experts">Chuyên gia</a></span
           >
         </li>
 
@@ -82,13 +82,15 @@
       <div class="dropdown-profile" id="dropdown-profile">
         <p>
           <i class="fa-sharp fa-regular fa-user-tie"></i
-          ><a href="#" class="mx-2 text-black profile-link"
+          ><a href="/profile" class="mx-2 text-black profile-link"
             >Xem thông tin cá nhân</a
           >
         </p>
         <p>
           <i class="fa-regular fa-arrow-right-from-bracket"></i
-          ><a href="#" class="mx-2 text-black logout-link">Đăng xuất</a>
+          ><a href="#" class="mx-2 text-black logout-link" (click)="onLogout()"
+            >Đăng xuất</a
+          >
         </p>
       </div>
     </div>

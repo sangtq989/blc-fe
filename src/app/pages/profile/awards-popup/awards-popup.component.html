@@ -1,0 +1,44 @@
+<p-dialog
+  header="Thêm danh hiệu và giải thưởng"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '30vw', height: '80vh' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeAwardPopup()"
+>
+  <p>Tên <span style="color: red">*</span></p>
+  <input
+    class="w-100"
+    type="text"
+    [(ngModel)]="awardName"
+    placeholder="Ví dụ: Giải thưởng an ninh thông tin Pwnie"
+    pInputText
+  />
+
+  <p>Tổ chức</p>
+  <input
+    class="w-100"
+    type="text"
+    placeholder="Ví dụ: Pwnie Express"
+    pInputText
+    [(ngModel)]="awardOrg"
+  />
+
+  <p>Thời gian phát hành <span style="color: red">*</span></p>
+  <p-calendar
+    view="month"
+    [style]="{ width: '100%' }"
+    dateFormat="mm/yy"
+    [readonlyInput]="true"
+    [(ngModel)]="publishDate"
+  ></p-calendar>
+
+  <div style="color: red" *ngIf="errorMessage">
+    Vui lòng điền đầy đủ thông tin cần thiết!
+  </div>
+
+  <div class="flex justify-center mt-2">
+    <p-button (click)="addNewAward()">Gửi</p-button>
+  </div>
+</p-dialog>
