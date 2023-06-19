@@ -1,18 +1,21 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.2 <0.9.0;
+pragma solidity 0.8.19;
 
 contract TicketMarketplace {
     enum TicketStatus {
         Proposal,
-        Accept,
         Doing,
-        Done
+        Cancel,
+        ExpertDone,
+        CustDone
     }
 
     struct Ticket {
         address customer;
-        address worker;
+        string worker;
         string description;
+        string tag;
+        int rate;
         TicketStatus status;
     }
 
@@ -34,31 +37,32 @@ contract TicketMarketplace {
     Ticket[] public tickets;
 
     function createTicket(
-        string memory _description
+        string memory tags,
+        string memory _description,
+        string memory target
     ) public returns (uint256) {
         tickets.push(
             Ticket({
                 customer: msg.sender,
-                worker: address(0),
+                worker: target,
                 description: _description,
-                status: TicketStatus.Proposal
+                status: TicketStatus.Proposal,
+                rate: -1,
+                tag: tags
             })
         );
         return tickets.length - 1;
     }
 
-    function assignWorker(uint256 ticketIndex) public {
+    function cancelTicket(
+        uint256 ticketIndex
+    ) public {
         Ticket storage ticket = tickets[ticketIndex];
         require(
-            msg.sender == ticket.customer,
-            "Only the customer can assign a worker"
-        );
-        require(
             ticket.status == TicketStatus.Proposal,
-            "Ticket must be in Proposal status"
+            "You can't cancel the ticket if started"
         );
-        ticket.worker = msg.sender;
-        ticket.status = TicketStatus.Accept;
+        ticket.status = TicketStatus.Cancel;
         emit ContractUpdated(
             ApplicationName,
             WorkflowName,
@@ -67,15 +71,17 @@ contract TicketMarketplace {
         );
     }
 
-    function startTicket(uint256 ticketIndex) public {
+    function startTicket(
+        uint256 ticketIndex
+    ) public {
         Ticket storage ticket = tickets[ticketIndex];
+        // require(
+        //     abi.encodePacked(msg.sender) == keccak256(bytes(ticket.worker)),
+        //     "Sender can't start they own ticket"
+        // );
         require(
-            msg.sender == ticket.worker,
-            "Only the assigned worker can start the ticket"
-        );
-        require(
-            ticket.status == TicketStatus.Accept,
-            "Ticket must be in Accept status"
+            ticket.status == TicketStatus.Proposal,
+            "Ticket must be in Proposal status"
         );
         ticket.status = TicketStatus.Doing;
         emit ContractUpdated(
@@ -86,17 +92,17 @@ contract TicketMarketplace {
         );
     }
 
-    function finishTicket(uint256 ticketIndex) public {
+    function expertFinishTicket(uint256 ticketIndex) public {
         Ticket storage ticket = tickets[ticketIndex];
-        require(
-            msg.sender == ticket.worker,
-            "Only the assigned worker can finish the ticket"
-        );
+        // require(
+        //     msg.sender == keccak256(ticket.worker),
+        //     "Only the assigned worker can complete the ticket"
+        // );
         require(
             ticket.status == TicketStatus.Doing,
             "Ticket must be in Doing status"
         );
-        ticket.status = TicketStatus.Done;
+        ticket.status = TicketStatus.ExpertDone;
         emit ContractUpdated(
             ApplicationName,
             WorkflowName,
@@ -105,7 +111,47 @@ contract TicketMarketplace {
         );
     }
 
-    function getTickets() public view returns (Ticket[] memory) {
-        return tickets;
+
+    function customerDoneTicket(uint256 ticketIndex) public {
+        Ticket storage ticket = tickets[ticketIndex];
+        require(
+            msg.sender == ticket.customer,
+            "Ticket must be finish by customer"
+        );
+        require(
+            ticket.status == TicketStatus.ExpertDone,
+            "Ticket must be in done by the expert"
+        );
+        ticket.status = TicketStatus.CustDone;
+        emit ContractUpdated(
+            ApplicationName,
+            WorkflowName,
+            "TicketFinished",
+            msg.sender
+        );
+    }
+
+    function getTicketsByAddress(
+        string calldata addressString
+    ) public view returns (Ticket[] memory) {
+
+    
+        uint256 count = 0;
+        for (uint256 i = 0; i < tickets.length; i++) {
+            if (keccak256(bytes(tickets[i].worker)) == keccak256(bytes(addressString))) {
+                count++;
+            }
+        }
+
+        Ticket[] memory filteredItems = new Ticket[](count);
+        uint256 index = 0;
+        for (uint256 i = 0; i < tickets.length; i++) {
+            if (keccak256(bytes(tickets[i].worker)) == keccak256(bytes(addressString))) {
+                filteredItems[index] = tickets[i];
+                index++;
+            }
+        }
+
+        return filteredItems;
     }
 }
