@@ -49,10 +49,10 @@ export class TicketService {
       .send({ from: accounts[0] });
   }  
 
-  async customerDoneTicket(ticketIndex: number): Promise<void> {
+  async customerDoneTicket(ticketIndex: number, rate: number): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .customerDoneTicket(ticketIndex)
+      .customerDoneTicket(ticketIndex, rate)
       .send({ from: accounts[0] });
   }
 
