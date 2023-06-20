@@ -31,6 +31,8 @@ import { LicensesPopupComponent } from './profile/licenses-popup/licenses-popup.
 import { AwardsPopupComponent } from './profile/awards-popup/awards-popup.component';
 import { CoursesPopupComponent } from './profile/courses-popup/courses-popup.component';
 import { SkillsPopupComponent } from './profile/skills-popup/skills-popup.component';
+import { ExpertDetailComponent } from './expert-detail/expert-detail.component';
+import { TicketService } from '../services/ticket.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { SkillsPopupComponent } from './profile/skills-popup/skills-popup.compon
     AwardsPopupComponent,
     CoursesPopupComponent,
     SkillsPopupComponent,
+    ExpertDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -69,5 +72,6 @@ import { SkillsPopupComponent } from './profile/skills-popup/skills-popup.compon
     ChipsModule,
     ToastModule,
   ],
+  providers: [TicketService],
 })
 export class PagesModule {}

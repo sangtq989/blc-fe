@@ -1,0 +1,212 @@
+.contact-btn{
+  color: #2B83FF;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+  font-family: 'Montserrat', sans-serif;
+}
+.send-request-btn{
+  background: #2B83FF;
+  backdrop-filter: blur(50.5px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 8px;
+  padding: 5px 24px;
+  font-weight: 500;
+  color: #FFF;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 16px;
+}
+.address{
+  color: #797979;
+  margin-right: 16px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+}
+.exp{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  margin-left: 5px;
+}
+.rating{
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: #2B84FF;
+  text-align: center;
+  }
+
+  .rank{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .mark{
+    width: 10px;
+    height: 28px;
+
+    background: #2B84FF;
+    border-radius: 4px;
+  }
+.search-input {
+  background: #E3F2FF;
+  border-radius: 24px;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  width: 292px;
+  height: 40px;
+  margin-left: 20px;
+  & > input {
+    outline: none;
+    border: none;
+    background: transparent;
+  }
+}
+.title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  font-family: 'Montserrat', sans-serif;
+  margin-left: 10px;
+}
+.filter {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  & > div {
+    margin-right: 15px;
+  }
+}
+
+.exp-content, .certificate-content {
+  font-family: 'Montserrat', sans-serif;
+  border-bottom: 1px solid #D2D2D2;
+  & > div:first-child {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    color: #050505;
+  }
+  & > div:nth-child(2), & > p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #050505;
+  }
+  & > div:nth-child(3), & > div:nth-child(4) {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #797979;
+  }
+}
+#more {display: none;}
+.mark-see-more{
+  margin-top: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  font-family: 'Montserrat', sans-serif;
+  color: #2E70EA;
+}
+
+.edu-content {
+  font-family: 'Montserrat', sans-serif;
+  border-bottom: 1px solid #D2D2D2;
+  & > div:first-child {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    color: #050505;
+  }
+  & > div:nth-child(2){
+    color: #797979;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  & > div:last-child{
+    color: #050505;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+.awards-content{
+  border-bottom: 1px solid #D2D2D2;
+  font-family: 'Montserrat', sans-serif;
+  & > div:first-child {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    color: #050505;
+  }
+  & > div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #050505;
+  }
+  & > div:last-child {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #797979;
+  }
+}
+
+.skills-content{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  color: #050505;
+
+  & > div{
+    border-bottom: 1px solid #D2D2D2;
+    margin: 5px 0;
+    padding: 5px 0;
+  }
+}
+
+.courses-content{
+  font-family: 'Montserrat', sans-serif;
+  color: #050505;
+  border-bottom: 1px solid #D2D2D2;
+  & > div:first-child {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  & > div:last-child {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+.item-skills{
+  background: #F0F5FF;
+  color: #2F54EB;
+  border: 1px solid #ADC6FF;
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 1px 8px;
+  margin-right: 5px;
+}
+
+

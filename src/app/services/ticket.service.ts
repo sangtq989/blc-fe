@@ -17,11 +17,18 @@ export class TicketService {
       console.error('User denied account access', err);
     });
 
-    this.contract = new this.web3.eth.Contract(this.abi, address);
+    this.contract = new this.web3.eth.Contract(
+      this.abi,
+      '0xdEf6017Bc17b6812284633412EFab708Dc626A07'
+    );
     this.call = this.contract.methods;
   }
 
-  async createTicket(tags: string, description: string, targetAddress: string): Promise<void> {
+  async createTicket(
+    tags: string,
+    description: string,
+    targetAddress: string
+  ): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
       .createTicket(tags, description, targetAddress)
@@ -47,7 +54,7 @@ export class TicketService {
     return this.contract.methods
       .expertFinishTicket(ticketIndex)
       .send({ from: accounts[0] });
-  }  
+  }
 
   async customerDoneTicket(ticketIndex: number, rate: number): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
