@@ -21,17 +21,17 @@ export class TicketService {
     this.call = this.contract.methods;
   }
 
-  async createTicket(description: string): Promise<void> {
+  async createTicket(tags: string, description: string, targetAddress: string): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .createTicket(description)
+      .createTicket(tags, description, targetAddress)
       .send({ from: accounts[0] });
   }
 
-  async assignWorker(ticketIndex: number): Promise<void> {
+  async cancelTicket(ticketIndex: number): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .assignWorker(ticketIndex)
+      .cancelTicket(ticketIndex)
       .send({ from: accounts[0] });
   }
 
@@ -42,14 +42,21 @@ export class TicketService {
       .send({ from: accounts[0] });
   }
 
-  async finishTicket(ticketIndex: number): Promise<void> {
+  async expertFinishTicket(ticketIndex: number): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .finishTicket(ticketIndex)
+      .expertFinishTicket(ticketIndex)
+      .send({ from: accounts[0] });
+  }  
+
+  async customerDoneTicket(ticketIndex: number, rate: number): Promise<void> {
+    const accounts = await this.web3.eth.getAccounts();
+    return this.contract.methods
+      .customerDoneTicket(ticketIndex, rate)
       .send({ from: accounts[0] });
   }
 
-  async getTickets(): Promise<any> {
-    return this.contract.methods.getTickets().call();
+  async getTicketsByAddress(addressString: string): Promise<any> {
+    return this.contract.methods.getTicketsByAddress(addressString).call();
   }
 }
