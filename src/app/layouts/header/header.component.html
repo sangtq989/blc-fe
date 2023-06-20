@@ -4,7 +4,7 @@
     <div class="col-lg-1"></div>
     <div class="col-lg-2 d-flex align-items-center">
       <a class="logo" href="index.html">
-        <span class="inline-block dark:hidden text-white fs-2">LOGO</span>
+        <span class="inline-block text-white dark:hidden fs-2">LOGO</span>
       </a>
     </div>
 
@@ -18,7 +18,9 @@
 
         <li>
           <span class="mx-2 fs-4" (click)="onNavgigate($event)"
-            ><a class="text-white" routerLink="/experts">Chuyên gia</a></span
+            ><a class="text-white" routerLink="/experts/:email"
+              >Chuyên gia</a
+            ></span
           >
         </li>
 

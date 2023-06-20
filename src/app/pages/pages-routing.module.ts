@@ -7,6 +7,7 @@ import { AddProfileFormComponent } from './add-profile-form/add-profile-form.com
 import { ExpertListComponent } from './expert-list/expert-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ExpertDetailComponent } from './expert-detail/expert-detail.component';
 // import { ExpertInfoComponent } from './expert-info/expert-info.component';
 
 const routes: Routes = [
@@ -17,18 +18,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'add-profile', component: AddProfileFormComponent },
-      { path: 'experts', component: ExpertListComponent },
+      { path: 'experts/:email', component: ExpertDetailComponent },
       {
         path: 'profile',
         component: ProfileComponent,
         canActivate: [AuthGuard],
       },
-      // { path: 'experts-info', component: ExpertInfoComponent },
-      // {
-      //   path: 'expert',
-      //   loadChildren: () =>
-      //     import('././expert/expert.module').then((m) => m.ExpertModule),
-      // },
     ],
   },
 ];
