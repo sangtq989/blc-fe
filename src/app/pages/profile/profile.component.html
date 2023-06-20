@@ -183,7 +183,10 @@
       />
     </div>
 
-    <div *ngIf="!openAllExp" class="mt-6 exp-content">
+    <div
+      *ngIf="!openAllExp && inforExperts?.metadata?.EXPERIENCE?.length > 1"
+      class="mt-6 exp-content"
+    >
       <div>{{ inforExperts?.metadata?.EXPERIENCE?.[0]?.positionName }}</div>
       <div>{{inforExperts?.metadata?.EXPERIENCE?.[0]?.employeeType}}</div>
       <div>
@@ -194,7 +197,7 @@
       <p class="mt-2">
         {{ inforExperts?.metadata?.EXPERIENCE?.[0]?.jobDesc | slice : sliceOptions.start : sliceOptions.end }}
         <span
-          *ngIf="inforExperts?.metadata?.EXPERIENCE?.[0]?.jobDesc.length >= sliceOptions.default"
+          *ngIf="inforExperts?.metadata?.EXPERIENCE?.[0]?.jobDesc?.length >= sliceOptions.default"
         >
           <span (click)="onExpandText($event)">
             {{ seeMore ? "... see more" : "... see left" }}</span
@@ -202,7 +205,7 @@
         </span>
       </p>
     </div>
-    <div *ngIf="openAllExp">
+    <div *ngIf="openAllExp && inforExperts?.metadata?.EXPERIENCE?.length > 1">
       <div
         class="mt-6 exp-content"
         *ngFor="let exp of inforExperts?.metadata.EXPERIENCE"
@@ -216,7 +219,7 @@
         <div>{{ exp?.companyAddress }}</div>
         <p class="mt-2">
           {{ exp?.jobDesc | slice : sliceOptions.start : sliceOptions.end }}
-          <span *ngIf="exp?.jobDesc.length >= sliceOptions.default">
+          <span *ngIf="exp?.jobDesc?.length >= sliceOptions.default">
             <span (click)="onExpandText($event)">
               {{ seeMore ? "... see more" : "... see left" }}</span
             >
@@ -226,13 +229,14 @@
     </div>
 
     <div
-      *ngIf="inforExperts?.metadata?.EXPERIENCE.length > 1 && !openAllExp"
+      *ngIf="inforExperts?.metadata?.EXPERIENCE?.length > 1 && !openAllExp"
       class="flex justify-center"
       (click)="openAllExp = !openAllExp"
     >
       <div class="flex items-center mark-see-more">
         <div>
-          Xem tất cả {{ inforExperts?.metadata?.EXPERIENCE.length }} kinh nghiệm
+          Xem tất cả {{ inforExperts?.metadata?.EXPERIENCE?.length }} kinh
+          nghiệm
         </div>
         <img
           src="../../../assets/images/icons/icons-right.png"
@@ -257,7 +261,7 @@
       />
     </div>
 
-    <div *ngIf="!openAllEdus">
+    <div *ngIf="!openAllEdus && inforExperts?.metadata?.CERT_EDU?.length > 1">
       <div class="mt-6 edu-content">
         <div>{{ inforExperts?.metadata.CERT_EDU?.[0]?.uniName }}</div>
         <div>{{ inforExperts?.metadata.CERT_EDU?.[0]?.major }}</div>
@@ -265,7 +269,7 @@
       </div>
     </div>
 
-    <div *ngIf="openAllEdus">
+    <div *ngIf="openAllEdus && inforExperts?.metadata?.CERT_EDU?.length > 1">
       <div
         class="mt-6 edu-content"
         *ngFor="let edus of inforExperts?.metadata.CERT_EDU"
@@ -278,12 +282,12 @@
 
     <div
       class="flex justify-center"
-      *ngIf="inforExperts?.metadata?.CERT_EDU.length > 1 && !openAllEdus"
+      *ngIf="inforExperts?.metadata?.CERT_EDU?.length > 1 && !openAllEdus"
       (click)="openAllEdus = !openAllEdus"
     >
       <div class="flex items-center mark-see-more">
         <div>
-          Xem tất cả {{ inforExperts?.metadata?.CERT_EDU.length }} học vấn
+          Xem tất cả {{ inforExperts?.metadata?.CERT_EDU?.length }} học vấn
         </div>
         <img
           src="../../../assets/images/icons/icons-right.png"
@@ -308,7 +312,12 @@
       />
     </div>
 
-    <div *ngIf="!openAllLiense" class="mt-6 certificate-content">
+    <div
+      *ngIf="
+        !openAllLiense && inforExperts?.metadata?.CERT_LICENSES?.length > 1
+      "
+      class="mt-6 certificate-content"
+    >
       <div>{{inforExperts?.metadata?.CERT_LICENSES?.[0]?.publisher}}</div>
       <div>{{inforExperts?.metadata?.CERT_LICENSES?.[0]?.licensesName}}</div>
       <div>
@@ -324,7 +333,9 @@
       </p>
     </div>
 
-    <div *ngIf="openAllLiense">
+    <div
+      *ngIf="openAllLiense && inforExperts?.metadata?.CERT_LICENSES?.length > 1"
+    >
       <div
         class="mt-6 certificate-content"
         *ngFor="let liense of inforExperts?.metadata?.CERT_LICENSES"
@@ -342,12 +353,14 @@
 
     <div
       class="flex justify-center"
-      *ngIf="inforExperts?.metadata?.CERT_LICENSES.length > 1 && !openAllLiense"
+      *ngIf="
+        inforExperts?.metadata?.CERT_LICENSES?.length > 1 && !openAllLiense
+      "
       (click)="openAllLiense = !openAllLiense"
     >
       <div class="flex items-center mark-see-more">
         <div>
-          Xem tất cả {{ inforExperts?.metadata?.CERT_LICENSES.length }} chứng
+          Xem tất cả {{ inforExperts?.metadata?.CERT_LICENSES?.length }} chứng
           chỉ
         </div>
         <img
@@ -372,12 +385,17 @@
         alt="icon plus"
       />
     </div>
-    <div *ngIf="!openAllAwards" class="mt-6 awards-content">
+    <div
+      *ngIf="!openAllAwards && inforExperts?.metadata?.CERT_AWARD?.length > 1"
+      class="mt-6 awards-content"
+    >
       <div>{{inforExperts?.metadata?.CERT_AWARD?.[0]?.awardName}}</div>
       <div>{{inforExperts?.metadata?.CERT_AWARD?.[0]?.awardOrg}}</div>
       <div>{{inforExperts?.metadata?.CERT_AWARD?.[0]?.publishDate}}</div>
     </div>
-    <div *ngIf="openAllAwards">
+    <div
+      *ngIf="openAllAwards && inforExperts?.metadata?.CERT_AWARD?.length > 1"
+    >
       <div
         class="mt-6 awards-content"
         *ngFor="let awards of inforExperts?.metadata?.CERT_AWARD"
@@ -390,12 +408,12 @@
 
     <div
       class="flex justify-center"
-      *ngIf="inforExperts?.metadata?.CERT_AWARD.length > 1 && !openAllAwards"
+      *ngIf="inforExperts?.metadata?.CERT_AWARD?.length > 1 && !openAllAwards"
       (click)="openAllAwards = !openAllAwards"
     >
       <div class="flex items-center mark-see-more">
         <div>
-          Xem tất cả {{ inforExperts?.metadata?.CERT_AWARD.length }} danh hiệu
+          Xem tất cả {{ inforExperts?.metadata?.CERT_AWARD?.length }} danh hiệu
           và giải thưởng
         </div>
         <img
@@ -420,7 +438,10 @@
         alt="icon plus"
       />
     </div>
-    <div *ngIf="openAllSkills" class="mt-6 skills-content">
+    <div
+      *ngIf="openAllSkills && inforExperts?.metadata?.SPECIALTY?.length > 1"
+      class="mt-6 skills-content"
+    >
       <div *ngFor="let speciality of inforExperts?.metadata?.SPECIALTY">
         <p>{{ speciality?.yearOfExp }} năm kinh nghiệm</p>
         <div class="flex">
@@ -452,7 +473,10 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!openAllSkills" class="mt-6 skills-content">
+    <div
+      *ngIf="!openAllSkills && inforExperts?.metadata?.SPECIALTY?.length > 1"
+      class="mt-6 skills-content"
+    >
       <div>
         <p>
           {{ inforExperts?.metadata?.SPECIALTY?.[0]?.yearOfExp }} năm kinh
@@ -496,12 +520,12 @@
 
     <div
       class="flex justify-center"
-      *ngIf="inforExperts?.metadata?.SPECIALTY.length > 1 && !openAllSkills"
+      *ngIf="inforExperts?.metadata?.SPECIALTY?.length > 1 && !openAllSkills"
       (click)="openAllSkills = !openAllSkills"
     >
       <div class="flex items-center mark-see-more">
         <div>
-          Xem tất cả {{ inforExperts?.metadata?.SPECIALTY.length }} kỹ năng
+          Xem tất cả {{ inforExperts?.metadata?.SPECIALTY?.length }} kỹ năng
           chuyên môn
         </div>
         <img
@@ -526,11 +550,16 @@
         alt="icon plus"
       />
     </div>
-    <div class="mt-6 courses-content" *ngIf="!openAllCourses">
+    <div
+      class="mt-6 courses-content"
+      *ngIf="!openAllCourses && inforExperts?.metadata?.CERT_COURSE?.length > 1"
+    >
       <div>{{ inforExperts?.metadata?.CERT_COURSE?.[0]?.courseName }}</div>
       <div>{{ inforExperts?.metadata?.CERT_COURSE?.[0]?.courseProvider }}</div>
     </div>
-    <div *ngIf="openAllCourses">
+    <div
+      *ngIf="openAllCourses && inforExperts?.metadata?.CERT_COURSE?.length > 1"
+    >
       <div
         class="mt-6 courses-content"
         *ngFor="let course of inforExperts?.metadata?.CERT_COURSE"
@@ -542,12 +571,12 @@
 
     <div
       class="flex justify-center"
-      *ngIf="inforExperts?.metadata?.CERT_COURSE.length > 1 && !openAllCourses"
+      *ngIf="inforExperts?.metadata?.CERT_COURSE?.length > 1 && !openAllCourses"
       (click)="openAllCourses = !openAllCourses"
     >
       <div class="flex items-center mark-see-more">
         <div>
-          Xem tất cả {{ inforExperts?.metadata?.CERT_COURSE.length }} chứng chỉ
+          Xem tất cả {{ inforExperts?.metadata?.CERT_COURSE?.length }} chứng chỉ
         </div>
         <img
           src="../../../assets/images/icons/icons-right.png"
