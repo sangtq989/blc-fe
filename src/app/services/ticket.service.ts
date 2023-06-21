@@ -21,10 +21,10 @@ export class TicketService {
     this.call = this.contract.methods;
   }
 
-  async createTicket(tags: string, description: string, targetAddress: string): Promise<void> {
+  async createTicket(title:string, tags: string, description: string, targetAddress: string): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .createTicket(tags, description, targetAddress)
+      .createTicket(title, tags, description, targetAddress)
       .send({ from: accounts[0] });
   }
 
