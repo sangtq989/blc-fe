@@ -261,7 +261,7 @@
     </div>
 
     <div
-      *ngIf="!openAllExp && inforExperts?.metadata?.EXPERIENCE?.length > 1"
+      *ngIf="!openAllExp && inforExperts?.metadata?.EXPERIENCE?.length >= 1"
       class="mt-6 exp-content"
     >
       <div>{{ inforExperts?.metadata?.EXPERIENCE?.[0]?.positionName }}</div>
@@ -282,7 +282,7 @@
         </span>
       </p>
     </div>
-    <div *ngIf="openAllExp && inforExperts?.metadata?.EXPERIENCE?.length > 1">
+    <div *ngIf="openAllExp && inforExperts?.metadata?.EXPERIENCE?.length >= 1">
       <div
         class="mt-6 exp-content"
         *ngFor="let exp of inforExperts?.metadata.EXPERIENCE"
@@ -330,7 +330,7 @@
       <span class="title">Học vấn</span>
     </div>
 
-    <div *ngIf="!openAllEdus && inforExperts?.metadata?.CERT_EDU?.length > 1">
+    <div *ngIf="!openAllEdus && inforExperts?.metadata?.CERT_EDU?.length >= 1">
       <div class="mt-6 edu-content">
         <div>{{ inforExperts?.metadata.CERT_EDU?.[0]?.uniName }}</div>
         <div>{{ inforExperts?.metadata.CERT_EDU?.[0]?.major }}</div>
@@ -338,7 +338,7 @@
       </div>
     </div>
 
-    <div *ngIf="openAllEdus && inforExperts?.metadata?.CERT_EDU?.length > 1">
+    <div *ngIf="openAllEdus && inforExperts?.metadata?.CERT_EDU?.length >= 1">
       <div
         class="mt-6 edu-content"
         *ngFor="let edus of inforExperts?.metadata.CERT_EDU"
@@ -375,7 +375,7 @@
 
     <div
       *ngIf="
-        !openAllLiense && inforExperts?.metadata?.CERT_LICENSES?.length > 1
+        !openAllLiense && inforExperts?.metadata?.CERT_LICENSES?.length >= 1
       "
       class="mt-6 certificate-content"
     >
@@ -395,7 +395,9 @@
     </div>
 
     <div
-      *ngIf="openAllLiense && inforExperts?.metadata?.CERT_LICENSES?.length > 1"
+      *ngIf="
+        openAllLiense && inforExperts?.metadata?.CERT_LICENSES?.length >= 1
+      "
     >
       <div
         class="mt-6 certificate-content"
@@ -439,7 +441,7 @@
       <span class="title">Danh hiệu và Giải thưởng</span>
     </div>
     <div
-      *ngIf="!openAllAwards && inforExperts?.metadata?.CERT_AWARD?.length > 1"
+      *ngIf="!openAllAwards && inforExperts?.metadata?.CERT_AWARD?.length >= 1"
       class="mt-6 awards-content"
     >
       <div>{{inforExperts?.metadata?.CERT_AWARD?.[0]?.awardName}}</div>
@@ -447,7 +449,7 @@
       <div>{{inforExperts?.metadata?.CERT_AWARD?.[0]?.publishDate}}</div>
     </div>
     <div
-      *ngIf="openAllAwards && inforExperts?.metadata?.CERT_AWARD?.length > 1"
+      *ngIf="openAllAwards && inforExperts?.metadata?.CERT_AWARD?.length >= 1"
     >
       <div
         class="mt-6 awards-content"
@@ -485,7 +487,7 @@
     </div>
 
     <div
-      *ngIf="openAllSkills && inforExperts?.metadata?.SPECIALTY?.length > 1"
+      *ngIf="openAllSkills && inforExperts?.metadata?.SPECIALTY?.length >= 1"
       class="mt-6 skills-content"
     >
       <div *ngFor="let speciality of inforExperts?.metadata?.SPECIALTY">
@@ -520,7 +522,7 @@
       </div>
     </div>
     <div
-      *ngIf="!openAllSkills && inforExperts?.metadata?.SPECIALTY?.length > 1"
+      *ngIf="!openAllSkills && inforExperts?.metadata?.SPECIALTY?.length >= 1"
       class="mt-6 skills-content"
     >
       <div>
@@ -590,13 +592,15 @@
     </div>
     <div
       class="mt-6 courses-content"
-      *ngIf="!openAllCourses && inforExperts?.metadata?.CERT_COURSE?.length > 1"
+      *ngIf="
+        !openAllCourses && inforExperts?.metadata?.CERT_COURSE?.length >= 1
+      "
     >
       <div>{{ inforExperts?.metadata?.CERT_COURSE?.[0]?.courseName }}</div>
       <div>{{ inforExperts?.metadata?.CERT_COURSE?.[0]?.courseProvider }}</div>
     </div>
     <div
-      *ngIf="openAllCourses && inforExperts?.metadata?.CERT_COURSE?.length > 1"
+      *ngIf="openAllCourses && inforExperts?.metadata?.CERT_COURSE?.length >= 1"
     >
       <div
         class="mt-6 courses-content"

@@ -79,6 +79,7 @@ export class ProfileComponent implements OnInit {
     try {
       const res = await getProfiles();
       this.inforExperts = res?.data?.data;
+      console.log('inforExperts', this.inforExperts);
     } catch (error) {
       this.messageService.add({
         severity: 'error',

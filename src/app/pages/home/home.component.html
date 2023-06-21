@@ -1,4 +1,4 @@
-<body class="font-nunito text-base text-white">
+<body class="text-base text-white font-nunito">
   <!-- Loader Start -->
   <!-- <div id="preloader">
           <div id="status">
@@ -15,7 +15,7 @@
   <!-- Start Hero -->
   <section class="relative items-center overflow-hidden">
     <div
-      class="absolute top-0 start-0 w-full h-full z-0 pointer-events-none overflow-hidden"
+      class="absolute top-0 z-0 w-full h-full overflow-hidden pointer-events-none start-0"
     >
       <img
         src="assets/images/illustrator/celebration.svg"
@@ -29,16 +29,16 @@
       <!--Note: Youtube Embed Background Video-->
     </div>
     <div class="container z-2" style="height: 550px !important">
-      <div class="grid grid-cols-1 md:mt-44 mt-32 text-center">
+      <div class="grid grid-cols-1 mt-32 text-center md:mt-44">
         <h4
-          class="font-bold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5"
+          class="mb-5 text-4xl font-bold leading-normal lg:leading-normal lg:text-5xl"
         >
           Tìm kiếm chuyên gia phù hợp với bạn !
         </h4>
 
         <div class="mt-6">
-          <div class="search-collapse p-3">
-            <div class="row mb-3">
+          <div class="p-3 search-collapse">
+            <div class="mb-3 row">
               <div class="col-lg-10 text-start">
                 <input
                   type="text"
@@ -56,8 +56,8 @@
               </div>
             </div>
           </div>
-          <div class="content" id="content">
-            <div class="row mb-3">
+          <!-- <div class="content" id="content">
+            <div class="mb-3 row">
               <div class="col-lg-6 text-start">
                 <span>Tìm kiếm nâng cao</span>
               </div>
@@ -97,12 +97,12 @@
                 ></p-dropdown>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <!--end grid-->
 
-      <!-- <div class="md:flex justify-center mt-10">
+      <!-- <div class="justify-center mt-10 md:flex">
                   <div class="lg:w-1/2 md:w-2/3"> -->
       <!-- </div>
               </div> -->
@@ -112,9 +112,9 @@
   <!--end section-->
 
   <!-- Start Section-->
-  <section class="relative md:py-24 py-16">
+  <section class="relative py-16 md:py-24">
     <div class="container">
-      <div class="row mb-3">
+      <div class="mb-3 row">
         <div class="col-lg-6 text-start">
           <span class="text-black fs-3"><b>Top chuyên gia nổi bật</b></span>
         </div>
@@ -125,62 +125,28 @@
           ></a>
         </div>
       </div>
-      <div class="row mb-3">
-        <div class="col-lg-4">
-          <p-card header="Advanced Card" subheader="Card Subheader">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Inventore sed consequuntur error repudiandae numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione
-              quam perferendis esse, cupiditate neque quas!
-            </p>
-            <ng-template pTemplate="footer">
-              <p-button label="Save" icon="pi pi-check"></p-button>
-              <p-button
-                label="Cancel"
-                icon="pi pi-times"
-                styleClass="p-button-secondary"
-                [style]="{ 'margin-left': '.5em' }"
-              ></p-button>
-            </ng-template>
-          </p-card>
-        </div>
-        <div class="col-lg-4">
-          <p-card header="Advanced Card" subheader="Card Subheader">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Inventore sed consequuntur error repudiandae numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione
-              quam perferendis esse, cupiditate neque quas!
-            </p>
-            <ng-template pTemplate="footer">
-              <p-button label="Save" icon="pi pi-check"></p-button>
-              <p-button
-                label="Cancel"
-                icon="pi pi-times"
-                styleClass="p-button-secondary"
-                [style]="{ 'margin-left': '.5em' }"
-              ></p-button>
-            </ng-template>
-          </p-card>
-        </div>
-        <div class="col-lg-4">
-          <p-card header="Advanced Card" subheader="Card Subheader">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Inventore sed consequuntur error repudiandae numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione
-              quam perferendis esse, cupiditate neque quas!
-            </p>
-            <ng-template pTemplate="footer">
-              <p-button label="Save" icon="pi pi-check"></p-button>
-              <p-button
-                label="Cancel"
-                icon="pi pi-times"
-                styleClass="p-button-secondary"
-                [style]="{ 'margin-left': '.5em' }"
-              ></p-button>
-            </ng-template>
+      <div class="flex flex-wrap mb-3">
+        <div
+          *ngFor="let expert of expertList"
+          class="expert-item"
+          (click)="goToDetailExpert(expert.email)"
+        >
+          <p-card class="cursor-pointer">
+            <div class="flex items-center">
+              <img
+                width="50"
+                height="50"
+                src="../../../assets/images/avatar.png"
+                alt="avatar"
+              />
+              <div class="text-black expert-item__content">
+                <div>{{ expert?.fullName }}</div>
+                <div>{{ expert?.jobTitle }}</div>
+              </div>
+            </div>
+            <div class="flex flex-wrap mt-4 expert-item__des">
+              <div *ngFor="let tag of expert?.tags">{{ tag }}</div>
+            </div>
           </p-card>
         </div>
       </div>
@@ -189,13 +155,13 @@
 
   <!-- Start Section-->
   <section
-    class="relative md:py-24 py-16 bg-gray-50 dark:bg-slate-800 bg-transparent-service"
+    class="relative py-16 md:py-24 bg-gray-50 dark:bg-slate-800 bg-transparent-service"
   >
     <div class="container">
-      <div class="row text-center" style="margin-bottom: 50px">
+      <div class="text-center row" style="margin-bottom: 50px">
         <span class="text-black fs-3"><b>Các dịch vụ ứng cứu sự cố</b></span>
       </div>
-      <div class="row mb-3">
+      <div class="mb-3 row">
         <div class="col-lg-4">
           <p-card header="Advanced Card" subheader="Card Subheader">
             <p>
@@ -231,12 +197,12 @@
     <!--end container-->
   </section>
 
-  <section class="relative md:py-24 py-16 bg-gray-50 dark:bg-slate-800">
+  <section class="relative py-16 md:py-24 bg-gray-50 dark:bg-slate-800">
     <div class="container">
-      <div class="row text-center" style="margin-bottom: 50px">
+      <div class="text-center row" style="margin-bottom: 50px">
         <span class="text-black fs-3"><b>Về chúng tôi</b></span>
       </div>
-      <div class="row mb-3">
+      <div class="mb-3 row">
         <div class="col-lg-5">
           <p-card header="Advanced Card" subheader="Card Subheader">
             <p>
@@ -262,19 +228,19 @@
 
   <!-- Footer Start -->
   <footer
-    class="footer bg-dark-footer relative text-gray-200 dark:text-gray-200"
+    class="relative text-gray-200 footer bg-dark-footer dark:text-gray-200"
   >
     <div class="py-[30px] px-0 border-t border-slate-800">
       <div class="container text-center">
         <div class="text-center">
-          <div class="ltr:md:text-left rtl:md:text-right text-center">
+          <div class="text-center ltr:md:text-left rtl:md:text-right">
             <p class="mb-0">
               ©
               <script>
                 document.write(new Date().getFullYear());
               </script>
               Techwind. Design with
-              <i class="mdi mdi-heart text-red-600"></i> by
+              <i class="text-red-600 mdi mdi-heart"></i> by
               <a
                 href="https://shreethemes.in/"
                 target="_blank"

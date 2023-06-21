@@ -1,0 +1,79 @@
+.mt-6 {
+    margin: 0 200px !important;
+  }
+
+  .search-collapse {
+    background-color: #faf8f84d;
+  }
+
+  .content {
+    background-color: #faf8f84d;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .active {
+    padding: 1rem;
+    max-height: none;
+  }
+
+  :host ::ng-deep .p-inputtext {
+    width: 100% !important;
+  }
+
+  :host ::ng-deep .p-inputwrapper .p-dropdown {
+    width: 100% !important;
+  }
+
+  .nav-sticky span {
+    color: black !important;
+  }
+
+  .bg-transparent-service {
+    background-color: transparent !important;
+    background-image: linear-gradient(to bottom, #3b82f6bd, #bfdbfe78) !important;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .expert-item{
+    width: 400px;
+    margin-right: 35px;
+    &__content{
+      margin-left: 12px;
+      & > div:first-child{
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22px;
+        color: #050505;
+        font-family: 'Montserrat', sans-serif;
+      }
+      & > div:last-child{
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22px;
+        color: #797979;
+        text-transform: uppercase;
+        font-family: 'Montserrat', sans-serif;
+      }
+    }
+    &__des > div{
+      background: #BCDDFF;
+      backdrop-filter: blur(50.5px);
+      /* Note: backdrop-filter has minimal browser support */
+      padding: 4px 24px;
+      border-radius: 8px;
+      margin-right: 15px;
+      display: inline-block;
+      width: 110px;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+    }
+
+
+  }
+
+
