@@ -25,13 +25,15 @@ export class TicketService {
   }
 
   async createTicket(
+    title: string,
     tags: string,
+    date: string,
     description: string,
     targetAddress: string
   ): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .createTicket(tags, description, targetAddress)
+      .createTicket(title, tags, date, description, targetAddress)
       .send({ from: accounts[0] });
   }
 
