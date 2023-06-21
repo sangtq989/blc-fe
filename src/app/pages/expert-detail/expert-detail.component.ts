@@ -6,6 +6,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TicketService } from 'src/app/services/ticket.service';
 import { Cookie } from 'ng2-cookies';
 import { AuthConstant } from 'src/app/constants/auth.constant';
+import * as moment from 'moment';
 @Component({
   selector: 'app-expert-detail',
   templateUrl: './expert-detail.component.html',
@@ -27,6 +28,7 @@ export class ExpertDetailComponent implements OnInit {
   value: number = 4.8;
   visible: boolean = false;
   visibleSendRequest: boolean = false;
+  productsBackUp: any = [];
   products: any = [];
   selectedStatus: any;
   statusList: any;
@@ -44,6 +46,7 @@ export class ExpertDetailComponent implements OnInit {
   openAllSkills: boolean = false;
   openAllEdus: boolean = false;
   title: string = '';
+  namePj: string = '';
   tags: string[] | undefined;
   targetList: any = [
     { name: 'Ứng cứu sự cố', code: 'Ứng cứu sự cố' },
@@ -57,23 +60,14 @@ export class ExpertDetailComponent implements OnInit {
   description: string = '';
   errorMessage: boolean = false;
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.statusList = [
-      { name: 'Chờ xử lý', code: 'Pending' },
-      { name: 'Chuẩn bị', code: 'Prepare' },
-      { name: 'Tiến hành', code: 'Process' },
-      { name: 'Hoàn thành', code: 'Success' },
-      { name: 'Đã từ chối', code: 'Canceled' },
+      { name: 'Proposal', code: '0' },
+      { name: 'Doing', code: '1' },
+      { name: 'Cancel', code: '2' },
+      { name: 'ExpertDone', code: '3' },
+      { name: 'CustDone', code: '4' },
     ];
-    // this.products = [
-    //   {
-    //     id: '01',
-    //     name: 'a',
-    //     status: 'Chuẩn bị',
-    //     subject: 'IT',
-    //     createdAt: '12/06/2023',
-    //   },
-    // ];
 
     this.initData();
   }
@@ -93,6 +87,14 @@ export class ExpertDetailComponent implements OnInit {
       /* New */ method: 'eth_requestAccounts' /* New */,
     });
 
+    if (typeof window.ethereum === 'undefined') {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Warn',
+        detail: 'Please install MetaMask!',
+      });
+    }
+
     try {
       const res = await getExpertDetals(this.route.snapshot.params);
       this.inforExperts = res?.data?.data;
@@ -104,24 +106,78 @@ export class ExpertDetailComponent implements OnInit {
       });
     }
 
-    if (typeof window.ethereum === 'undefined') {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Warn',
-        detail: 'Please install MetaMask!',
+    await this.ticketSv.getTicketsByAddress(accounts[0]).then((res) => {
+      const newArr = res.map((item: any) => {
+        const color = this.generatorColor(item?.status);
+        return {
+          id: item?.id,
+          title: item?.title,
+          tag: item?.tag,
+          date: item?.date,
+          ...color,
+        };
       });
-    }
-
-    this.ticketSv.getTicketsByAddress(accounts[0]).then((res) => {
-      this.products = res.map((item: any) => item);
-      console.log(
-        'this.products',
-        this.products?.[0]?.tag,
-        JSON.stringify(this.products)
-      );
+      this.products = [...newArr];
+      this.productsBackUp = [...newArr];
     });
   }
 
+  searchPJ(e: any) {
+    this.products = this.productsBackUp.filter(
+      (item: any) => item?.title.indexOf(e?.target?.value) !== -1
+    );
+  }
+
+  searchStatus(e: any) {
+    this.namePj = '';
+    this.products = this.productsBackUp.filter(
+      (item: any) => item?.status === e.value.name
+    );
+  }
+
+  generatorColor(type: string) {
+    switch (type) {
+      case '0':
+        return {
+          background: '#F1FFE4',
+          color: '#797979',
+          status: 'Proposal',
+        };
+        break;
+      case '1':
+        return {
+          background: '#E3F2FF',
+          color: '#2B83FF',
+          status: 'Doing',
+        };
+        break;
+      case '2':
+        return {
+          background: '#E3F2FF',
+          color: '#2B83FF',
+          status: 'ExpertDone',
+        };
+        break;
+      case '3':
+        return {
+          background: '#F1FFE4',
+          color: '#31B055',
+          status: 'Doing',
+        };
+        break;
+      case '4':
+        return {
+          background: '#FFE2E2',
+          color: '#C50606',
+          status: 'CustDone',
+        };
+        break;
+
+      default:
+        break;
+    }
+    return 0;
+  }
   openRequestDialog() {
     if (!Cookie.get(AuthConstant.ACCESS_TOKEN_KEY)) {
       this.router.navigate(['/auth/login']);
@@ -140,6 +196,7 @@ export class ExpertDetailComponent implements OnInit {
         this.tags
           ?.map((item) => JSON.parse(JSON.stringify(item)).name)
           .toString(),
+        moment().format('YYYY-MM-DD'),
         this.description,
         accounts?.[0]
       );

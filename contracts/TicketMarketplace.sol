@@ -11,11 +11,13 @@ contract TicketMarketplace {
     }
 
     struct Ticket {
+        uint256 id;
         address customer;
         string worker;
         string title;
         string description;
         string tag;
+        string date;
         int rate;
         TicketStatus status;
     }
@@ -40,14 +42,17 @@ contract TicketMarketplace {
     function createTicket(
         string memory title,
         string memory tags,
+        string memory date,
         string memory _description,
         string memory target
     ) public returns (uint256) {
         tickets.push(
             Ticket({
+                id: tickets.length,
                 customer: msg.sender,
                 title: title,
                 worker: target,
+                date: date,
                 description: _description,
                 status: TicketStatus.Proposal,
                 rate: -1,

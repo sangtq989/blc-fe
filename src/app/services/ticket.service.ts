@@ -19,7 +19,7 @@ export class TicketService {
 
     this.contract = new this.web3.eth.Contract(
       this.abi,
-      '0x5c56bC51FdF87A8233768dA6F4Dd5e17c5ef25b7'
+      '0xde79Ee48635B2d012Cf0EA297ea25EA7b7C6f57e'
     );
     this.call = this.contract.methods;
   }
@@ -40,12 +40,13 @@ export class TicketService {
   async createTicket(
     title: string,
     tags: string,
+    date: string,
     description: string,
     targetAddress: string
   ): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .createTicket(title, tags, description, targetAddress)
+      .createTicket(title, tags, date, description, targetAddress)
       .send({ from: accounts[0] });
   }
 
