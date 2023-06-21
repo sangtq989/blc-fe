@@ -81,4 +81,8 @@ export class TicketService {
   async getTicketsByAddress(addressString: string): Promise<any> {
     return this.contract.methods.getTicketsByAddress(addressString).call();
   }
+
+  async getYourRequestTicket(): Promise<any> {
+    return this.contract.methods.getTicketsByAddress(addressString).call();
+  }
 }
