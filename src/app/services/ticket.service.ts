@@ -6,32 +6,46 @@ import Contract from 'web3-eth-contract';
   providedIn: 'root',
 })
 export class TicketService {
+  web3: Web3;
+  contract: Contract;
   call: any;
   abi: any = require('../../../build/contracts/TicketMarketplace.json').abi;
 
-  constructor(private web3: Web3, private contract: Contract) {}
-
-  initContract(address: any) {
+  constructor() {
     this.web3 = new Web3(window.ethereum);
-    window.ethereum.enable().catch((err: any) => {
+    window?.ethereum?.enable().catch((err: any) => {
       console.error('User denied account access', err);
     });
 
     this.contract = new this.web3.eth.Contract(
       this.abi,
-      '0x36eEe954DeF8Ce73B73124D9600023D563eef3B2'
+      '0x5c56bC51FdF87A8233768dA6F4Dd5e17c5ef25b7'
     );
     this.call = this.contract.methods;
   }
 
+  // initContract(address: any) {
+  //   this.web3 = new Web3(window.ethereum);
+  //   window.ethereum.enable().catch((err: any) => {
+  //     console.error('User denied account access', err);
+  //   });
+
+  //   this.contract = new this.web3.eth.Contract(
+  //     this.abi,
+  //     '0x38af30f67A6C1ce290e426C450a17b2fD9cE36A6'
+  //   );
+  //   this.call = this.contract.methods;
+  // }
+
   async createTicket(
+    title: string,
     tags: string,
     description: string,
     targetAddress: string
   ): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .createTicket(tags, description, targetAddress)
+      .createTicket(title, tags, description, targetAddress)
       .send({ from: accounts[0] });
   }
 

@@ -2,11 +2,11 @@
   <!-- infomation and contact -->
   <div class="mb-5 row">
     <div
-      class="p-8 row col-lg-8 rounded-3xl"
+      class="p-8 bg-white row col-lg-8 rounded-3xl"
       [ngStyle]="
         inforExperts?.userInfo?.walletAddress
-          ? { 'margin-right': '12px', background: '#FFF' }
-          : { 'margin-right': '12px', background: '#c13c3c' }
+          ? { 'margin-right': '12px' }
+          : { 'margin-right': '12px', border: '5px solid #c13c3c' }
       "
     >
       <div class="col-lg-3">
@@ -81,7 +81,64 @@
             </div>
           </p-dialog>
         </div>
-        <button class="send-request-btn">Send Request</button>
+        <button
+          *ngIf="inforExperts?.userInfo?.walletAddress"
+          class="send-request-btn"
+          (click)="openRequestDialog()"
+        >
+          Send Request
+        </button>
+        <div *ngIf="!inforExperts?.userInfo?.walletAddress">
+          Chuyên gia chưa kết nối ví
+        </div>
+        <p-dialog
+          header="Yêu cầu hợp tác dự án"
+          [(visible)]="visibleSendRequest"
+          [modal]="true"
+          [style]="{ width: '30vw' }"
+          [draggable]="false"
+          [resizable]="false"
+        >
+          <p>Tên dự án <span style="color: red">*</span></p>
+          <input
+            class="w-100"
+            type="text"
+            [(ngModel)]="title"
+            placeholder="Nhập tên dự án"
+            pInputText
+          />
+
+          <p>Chuyên môn <span style="color: red">*</span></p>
+          <p-multiSelect
+            [style]="{ width: '100%' }"
+            [options]="targetList"
+            [(ngModel)]="tags"
+            defaultLabel="Chọn chuyên môn"
+            optionLabel="name"
+            display="chip"
+          ></p-multiSelect>
+
+          <p>Mô tả bổ sung</p>
+          <input
+            class="w-100"
+            type="text"
+            [(ngModel)]="description"
+            placeholder="Nhập mô tả"
+            pInputText
+          />
+          <p class="mt-4">
+            Hãy điền đầy đủ thông tin để chuyên gia có thể hiểu về dự án dự của
+            bạn.
+          </p>
+          <ng-template pTemplate="footer">
+            <p-button
+              icon="pi pi-check"
+              (click)="sendRequest()"
+              label="Send"
+              styleClass="p-button-text"
+            ></p-button>
+          </ng-template>
+        </p-dialog>
       </div>
       <div class="p-10 col-lg-3">
         <div class="flex items-center mb-3">
@@ -153,12 +210,12 @@
           <th pSortableColumn="action" style="width: 20%">Hành động</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-products>
+      <ng-template pTemplate="body">
         <tr>
           <td>{{ products.id }}</td>
-          <td>{{ products.name }}</td>
+          <td>{{ products.title }}</td>
           <td>{{ products.status }}</td>
-          <td>{{ products.subject }}</td>
+          <td>{{ products.tag }}</td>
           <td>{{ products.createdAt }}</td>
           <td class="flex items-center">
             Xem dự án

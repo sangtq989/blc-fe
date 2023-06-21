@@ -21,6 +21,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AddProfileFormComponent } from './add-profile-form/add-profile-form.component';
 import { CommonsModule } from './commons/commons.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ExpertListComponent } from './expert-list/expert-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -70,6 +71,7 @@ import { ExpertDetailComponent } from './expert-detail/expert-detail.component';
     MultiSelectModule,
     ChipsModule,
     ToastModule,
+    ConfirmDialogModule,
   ],
 })
 export class PagesModule {}

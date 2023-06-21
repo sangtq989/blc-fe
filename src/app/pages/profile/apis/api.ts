@@ -6,6 +6,13 @@ export const getProfiles = () => {
     method: 'get',
   });
 };
+export const udpateProfiles = (data: any) => {
+  return service({
+    url: '/me/profile/wallet-address',
+    method: 'put',
+    data,
+  });
+};
 
 export const createCertificate = (data: any) => {
   return service({

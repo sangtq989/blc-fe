@@ -4,6 +4,7 @@ import {
   getProfiles,
   createExperience,
   createSpecialty,
+  udpateProfiles,
 } from './apis/api';
 import { DialogModule } from 'primeng/dialog';
 import { MessageService } from 'primeng/api';
@@ -227,6 +228,41 @@ export class ProfileComponent implements OnInit {
         summary: 'Error',
         detail: 'Error',
       });
+    }
+  }
+
+  async connectWallet() {
+    if (typeof window.ethereum === 'undefined') {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Warn',
+        detail: 'Please install MetaMask!',
+      });
+    } else {
+      try {
+        let accounts = await window.ethereum.request({
+          /* New */ method: 'eth_requestAccounts' /* New */,
+        });
+
+        const res = await udpateProfiles({
+          blockChainAddress: accounts?.[0],
+        });
+
+        if (res?.status === 200) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Connect Wallet thành công',
+          });
+          this.initData();
+        }
+      } catch (error) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error',
+        });
+      }
     }
   }
 

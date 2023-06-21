@@ -3,7 +3,11 @@
   <div class="mb-5 row">
     <div
       class="p-8 bg-white row col-lg-8 rounded-3xl"
-      style="margin-right: 12px"
+      [ngStyle]="
+        inforExperts?.userInfo?.walletAddress
+          ? { 'margin-right': '12px' }
+          : { 'margin-right': '12px', border: '5px solid #c13c3c' }
+      "
     >
       <div class="col-lg-3">
         <img
@@ -78,6 +82,14 @@
           </p-dialog>
         </div>
         <button class="send-request-btn">+ Thêm phần hồ sơ</button>
+        <button
+          *ngIf="!inforExperts?.userInfo?.walletAddress"
+          class="send-request-btn"
+          style="margin-left: '12px'"
+          (click)="connectWallet()"
+        >
+          Connect Wallet
+        </button>
       </div>
       <div class="p-10 col-lg-3">
         <div class="flex items-center mb-3">

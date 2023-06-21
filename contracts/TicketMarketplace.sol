@@ -13,6 +13,7 @@ contract TicketMarketplace {
     struct Ticket {
         address customer;
         string worker;
+        string title;
         string description;
         string tag;
         int rate;
@@ -37,6 +38,7 @@ contract TicketMarketplace {
     Ticket[] public tickets;
 
     function createTicket(
+        string memory title,
         string memory tags,
         string memory _description,
         string memory target
@@ -44,6 +46,7 @@ contract TicketMarketplace {
         tickets.push(
             Ticket({
                 customer: msg.sender,
+                title: title,
                 worker: target,
                 description: _description,
                 status: TicketStatus.Proposal,
@@ -54,7 +57,9 @@ contract TicketMarketplace {
         return tickets.length - 1;
     }
 
-    function cancelTicket(uint256 ticketIndex) public {
+    function cancelTicket(
+        uint256 ticketIndex
+    ) public {
         Ticket storage ticket = tickets[ticketIndex];
         require(
             ticket.status == TicketStatus.Proposal,
@@ -69,7 +74,9 @@ contract TicketMarketplace {
         );
     }
 
-    function startTicket(uint256 ticketIndex) public {
+    function startTicket(
+        uint256 ticketIndex
+    ) public {
         Ticket storage ticket = tickets[ticketIndex];
         // require(
         //     abi.encodePacked(msg.sender) == keccak256(bytes(ticket.worker)),
@@ -108,7 +115,7 @@ contract TicketMarketplace {
     }
 
 
-    function customerDoneTicket(uint256 ticketIndex, int rate) public {
+    function customerDoneTicket(uint256 ticketIndex) public {
         Ticket storage ticket = tickets[ticketIndex];
         require(
             msg.sender == ticket.customer,
@@ -119,7 +126,6 @@ contract TicketMarketplace {
             "Ticket must be in done by the expert"
         );
         ticket.status = TicketStatus.CustDone;
-        ticket.rate = rate;
         emit ContractUpdated(
             ApplicationName,
             WorkflowName,
@@ -128,11 +134,11 @@ contract TicketMarketplace {
         );
     }
 
-    function getTickets(
+    function getTicketsByAddress(
         string calldata addressString
     ) public view returns (Ticket[] memory) {
 
-    
+
         uint256 count = 0;
         for (uint256 i = 0; i < tickets.length; i++) {
             if (keccak256(bytes(tickets[i].worker)) == keccak256(bytes(addressString))) {

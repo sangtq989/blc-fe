@@ -208,3 +208,7 @@
   padding: 1px 8px;
   margin-right: 5px;
 }
+
+::ng-deep .p-confirm-dialog > .p-dialog-header{
+  justify-content: center !important;
+}
