@@ -210,4 +210,15 @@
   margin-right: 5px;
 }
 
+.status{
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  & > div {
+    margin-right: 10px;
+  }
+}
+
 

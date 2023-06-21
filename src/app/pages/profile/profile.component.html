@@ -186,19 +186,147 @@
           <td>{{ product?.tag }}</td>
           <td>{{ product?.date }}</td>
           <td>
-            <div class="flex items-center cursor-pointer">
-              Xem dự án
-              <img
-                src="../../../assets/images/icons/icons-right.png"
-                alt="icon right"
-              />
+            <div class="status">
+              <div
+                *ngIf="product?.status === 'Proposal'"
+                style="color: #2e70ea; cursor: pointer"
+                (click)="acceptProject(product?.id)"
+              >
+                Chấp nhận
+              </div>
+              <div
+                *ngIf="product?.status === 'Proposal'"
+                style="color: #c50606; cursor: pointer"
+                (click)="cancelProject(product?.id)"
+              >
+                Từ chối
+              </div>
+              <div
+                *ngIf="product?.status === 'Doing'"
+                style="color: #2e70ea; cursor: pointer"
+                (click)="completeProject(product?.id)"
+              >
+                Hoàn thành
+              </div>
+              <p-rating
+                *ngIf="product?.status === 'CustDone'"
+                [(ngModel)]="product.rate"
+                [readonly]="true"
+                [cancel]="false"
+              ></p-rating>
             </div>
           </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="4">No customers found.</td>
+          <td colspan="4">Chưa có dữ liệu.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- List request -->
+  <div class="p-8 mb-5 bg-white rounded-3xl">
+    <div class="flex items-center justify-between">
+      <div class="flex">
+        <div class="flex items-center">
+          <div class="mark"></div>
+          <span class="title">Danh sách yêu cầu của bạn</span>
+        </div>
+        <div class="search-input">
+          <img
+            class="object-fit-cover"
+            src="../../../assets/images/icons/icons-search.png"
+          />
+          <input
+            (keyup)="searchPJRequest($event)"
+            type="text"
+            [(ngModel)]="namePjRequest"
+            placeholder="Tìm kiếm dự án"
+          />
+        </div>
+      </div>
+      <div class="filter">
+        <div>Trạng thái</div>
+        <p-dropdown
+          [options]="statusList"
+          [(ngModel)]="selectedStatus"
+          (onChange)="searchStatusRequest($event)"
+          optionLabel="name"
+        ></p-dropdown>
+      </div>
+    </div>
+
+    <p-table [value]="request" [tableStyle]="{ 'min-width': '60rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id" style="width: 5%">Id</th>
+          <th pSortableColumn="name" style="width: 20%">Tên dự án</th>
+          <th pSortableColumn="status" style="width: 20%">
+            Trạng thái <p-sortIcon field="status"></p-sortIcon>
+          </th>
+          <th pSortableColumn="subject" style="width: 20%">Lĩnh vực</th>
+          <th pSortableColumn="createdAt" style="width: 20%">
+            Thời gian tạo <p-sortIcon field="createdAt"></p-sortIcon>
+          </th>
+          <th pSortableColumn="action" style="width: 20%">Hành động</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-request>
+        <tr>
+          <td>{{ request?.id }}</td>
+          <td>{{ request?.title }}</td>
+          <td>
+            <div
+              [ngStyle]="{
+                background: request?.background,
+                color: request?.color,
+                width: 'max-content',
+                padding: '2px 8px'
+              }"
+            >
+              {{ request?.status }}
+            </div>
+          </td>
+          <td>{{ request?.tag }}</td>
+          <td>{{ request?.date }}</td>
+          <td>
+            <div class="status">
+              <div
+                *ngIf="request?.status === 'Proposal'"
+                style="color: #2e70ea; cursor: pointer"
+                (click)="cancelRequest(request?.id)"
+              >
+                Huỷ
+              </div>
+              <div
+                *ngIf="request?.status === 'ExpertDone'"
+                style="color: #c50606; cursor: pointer"
+                (click)="cancelRequest(request?.id)"
+              >
+                Từ chối
+              </div>
+              <div
+                *ngIf="request?.status === 'ExpertDone'"
+                style="color: #2e70ea; cursor: pointer"
+                (click)="rateRequest(request?.id)"
+              >
+                Đánh giá
+              </div>
+              <p-rating
+                *ngIf="request?.status === 'CustDone'"
+                [(ngModel)]="request.rate"
+                [readonly]="true"
+                [cancel]="false"
+              ></p-rating>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4">Chưa có dữ liệu.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -657,5 +785,27 @@
     (newSkillsEvent)="addNewSkill($event)"
     (closeEvent)="closeSkillPopup()"
   ></app-skills-popup>
+
+  <p-dialog
+    header="Đánh giá chuyên gia"
+    [(visible)]="visibleRating"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="text-xl">Tên chuyên gia:</div>
+
+    <div class="flex justify-center">
+      <p-rating [(ngModel)]="valueRate" [cancel]="false"></p-rating>
+    </div>
+    <p>Nhận xét</p>
+    <textarea class="w-100" rows="3" cols="20" pInputTextarea></textarea>
+    <ng-template pTemplate="footer">
+      <div class="flex justify-center">
+        <p-button label="Gửi đánh giá" (click)="onSubmitRate()"></p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
   <p-toast position="top-center"></p-toast>
 </div>

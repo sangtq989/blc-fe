@@ -19,7 +19,7 @@ export class TicketService {
 
     this.contract = new this.web3.eth.Contract(
       this.abi,
-      '0xde79Ee48635B2d012Cf0EA297ea25EA7b7C6f57e'
+      '0x8d765e067bA5bF6596cAAB559567a0080cDa7aE8'
     );
     this.call = this.contract.methods;
   }
@@ -82,7 +82,7 @@ export class TicketService {
     return this.contract.methods.getTicketsByAddress(addressString).call();
   }
 
-  async getYourRequestTicket(): Promise<any> {
+  async getYourRequestTicket(addressString: string): Promise<any> {
     return this.contract.methods.getTicketsByAddress(addressString).call();
   }
 }

@@ -153,22 +153,22 @@ export class ExpertDetailComponent implements OnInit {
         break;
       case '2':
         return {
-          background: '#E3F2FF',
-          color: '#2B83FF',
-          status: 'ExpertDone',
+          background: '#FFE2E2',
+          color: '#C50606',
+          status: 'Cancel',
         };
         break;
       case '3':
         return {
-          background: '#F1FFE4',
-          color: '#31B055',
-          status: 'Doing',
+          background: '#FFF2C9',
+          color: '#AEAEAE',
+          status: 'ExpertDone',
         };
         break;
       case '4':
         return {
-          background: '#FFE2E2',
-          color: '#C50606',
+          background: '#F1FFE4',
+          color: '#31B055',
           status: 'CustDone',
         };
         break;
@@ -178,6 +178,7 @@ export class ExpertDetailComponent implements OnInit {
     }
     return 0;
   }
+
   openRequestDialog() {
     if (!Cookie.get(AuthConstant.ACCESS_TOKEN_KEY)) {
       this.router.navigate(['/auth/login']);
@@ -191,15 +192,30 @@ export class ExpertDetailComponent implements OnInit {
       /* New */ method: 'eth_requestAccounts' /* New */,
     });
     if (this.tags && this.title) {
-      this.ticketSv.createTicket(
-        this.title,
-        this.tags
-          ?.map((item) => JSON.parse(JSON.stringify(item)).name)
-          .toString(),
-        moment().format('YYYY-MM-DD'),
-        this.description,
-        accounts?.[0]
-      );
+      this.ticketSv
+        .createTicket(
+          this.title,
+          this.tags
+            ?.map((item) => JSON.parse(JSON.stringify(item)).name)
+            .toString(),
+          moment().format('YYYY-MM-DD'),
+          this.description,
+          accounts?.[0]
+        )
+        .then(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Tạo ticket thành công',
+          });
+        })
+        .catch(() => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error',
+          });
+        });
       this.visibleSendRequest = false;
     }
   }

@@ -23,11 +23,15 @@ export class ProfileComponent implements OnInit {
     private ticketSv: TicketService
   ) {}
   value: number = 4.8;
+  valueRate: number = 0;
+  requestId: string = '';
   visible: boolean = false;
   selectedStatus: any;
   statusList: any;
   products: any = [];
   productsBackUp: any = [];
+  request: any = [];
+  requestBackUp: any = [];
   sliceOptions: any = {
     start: 0,
     end: 100,
@@ -47,7 +51,9 @@ export class ProfileComponent implements OnInit {
   visibleAwards: boolean = false;
   visibleCourses: boolean = false;
   visibleSkills: boolean = false;
+  visibleRating: boolean = false;
   namePj: string = '';
+  namePjRequest: string = '';
   ngOnInit(): void {
     this.statusList = [
       { name: 'Proposal', code: '0' },
@@ -58,7 +64,6 @@ export class ProfileComponent implements OnInit {
     ];
 
     this.initData();
-    console.log(this.products);
   }
 
   openContactInfo() {
@@ -72,14 +77,9 @@ export class ProfileComponent implements OnInit {
   }
 
   async initData() {
-    let accounts = await window.ethereum.request({
-      /* New */ method: 'eth_requestAccounts' /* New */,
-    });
-
     try {
       const res = await getProfiles();
       this.inforExperts = res?.data?.data;
-      console.log('inforExperts', this.inforExperts);
     } catch (error) {
       this.messageService.add({
         severity: 'error',
@@ -88,6 +88,14 @@ export class ProfileComponent implements OnInit {
       });
     }
 
+    this.getTickets();
+    this.getRequest();
+  }
+
+  async getTickets() {
+    let accounts = await window.ethereum.request({
+      /* New */ method: 'eth_requestAccounts' /* New */,
+    });
     await this.ticketSv.getTicketsByAddress(accounts[0]).then((res) => {
       const newArr = res.map((item: any) => {
         const color = this.generatorColor(item?.status);
@@ -97,11 +105,35 @@ export class ProfileComponent implements OnInit {
           tag: item?.tag,
           date: item?.date,
           status: item?.status,
+          rate: item?.rate,
           ...color,
         };
       });
       this.products = [...newArr];
       this.productsBackUp = [...newArr];
+    });
+  }
+
+  async getRequest() {
+    let accounts = await window.ethereum.request({
+      /* New */ method: 'eth_requestAccounts' /* New */,
+    });
+    await this.ticketSv.getYourRequestTicket(accounts[0]).then((res) => {
+      console.log('res ', res);
+      const newArr = res.map((item: any) => {
+        const color = this.generatorColor(item?.status);
+        return {
+          id: item?.id,
+          title: item?.title,
+          tag: item?.tag,
+          date: item?.date,
+          status: item?.status,
+          rate: item?.rate,
+          ...color,
+        };
+      });
+      this.request = [...newArr];
+      this.requestBackUp = [...newArr];
     });
   }
 
@@ -112,6 +144,18 @@ export class ProfileComponent implements OnInit {
   }
 
   searchStatus(e: any) {
+    this.namePjRequest = '';
+    this.request = this.requestBackUp.filter(
+      (item: any) => item?.status === e.value.name
+    );
+  }
+  searchPJRequest(e: any) {
+    this.request = this.requestBackUp.filter(
+      (item: any) => item?.title.indexOf(e?.target?.value) !== -1
+    );
+  }
+
+  searchStatusRequest(e: any) {
     this.namePj = '';
     this.products = this.productsBackUp.filter(
       (item: any) => item?.status === e.value.name
@@ -136,22 +180,22 @@ export class ProfileComponent implements OnInit {
         break;
       case '2':
         return {
-          background: '#E3F2FF',
-          color: '#2B83FF',
-          status: 'ExpertDone',
+          background: '#FFE2E2',
+          color: '#C50606',
+          status: 'Cancel',
         };
         break;
       case '3':
         return {
-          background: '#F1FFE4',
-          color: '#31B055',
-          status: 'Doing',
+          background: '#FFF2C9',
+          color: '#AEAEAE',
+          status: 'ExpertDone',
         };
         break;
       case '4':
         return {
-          background: '#FFE2E2',
-          color: '#C50606',
+          background: '#F1FFE4',
+          color: '#31B055',
           status: 'CustDone',
         };
         break;
@@ -340,5 +384,114 @@ export class ProfileComponent implements OnInit {
 
   closeSkillPopup() {
     this.visibleSkills = false;
+  }
+
+  acceptProject(id: any) {
+    this.ticketSv
+      .startTicket(Number(id))
+      .then(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Cập nhật ticket thành công',
+        });
+        this.getTickets();
+        this.getRequest();
+      })
+      .catch(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error',
+        });
+      });
+  }
+
+  cancelProject(id: any) {
+    this.ticketSv
+      .cancelTicket(Number(id))
+      .then(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Cập nhật ticket thành công',
+        });
+        this.getTickets();
+        this.getRequest();
+      })
+      .catch(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error',
+        });
+      });
+  }
+
+  cancelRequest(id: any) {
+    this.ticketSv
+      .cancelTicket(Number(id))
+      .then(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Cập nhật ticket thành công',
+        });
+        this.getTickets();
+        this.getRequest();
+      })
+      .catch(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error',
+        });
+      });
+  }
+
+  completeProject(id: any) {
+    this.ticketSv
+      .expertFinishTicket(Number(id))
+      .then(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Cập nhật ticket thành công',
+        });
+        this.getTickets();
+        this.getRequest();
+      })
+      .catch(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error',
+        });
+      });
+  }
+  rateRequest(id: any) {
+    this.visibleRating = true;
+    this.requestId = id;
+  }
+  onSubmitRate() {
+    this.ticketSv
+      .customerDoneTicket(Number(this.requestId), Number(this.valueRate))
+      .then(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Cập nhật ticket thành công',
+        });
+        this.visibleRating = false;
+        this.getTickets();
+        this.getRequest();
+      })
+      .catch(() => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error',
+        });
+      });
   }
 }
