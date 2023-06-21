@@ -120,7 +120,7 @@ contract TicketMarketplace {
     }
 
 
-    function customerDoneTicket(uint256 ticketIndex) public {
+    function customerDoneTicket(uint256 ticketIndex, uint256 rate) public {
         Ticket storage ticket = tickets[ticketIndex];
         require(
             msg.sender == ticket.customer,
@@ -131,6 +131,7 @@ contract TicketMarketplace {
             "Ticket must be in done by the expert"
         );
         ticket.status = TicketStatus.CustDone;
+        ticket.rate = rate
         emit ContractUpdated(
             ApplicationName,
             WorkflowName,
