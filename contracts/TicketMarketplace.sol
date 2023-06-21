@@ -143,7 +143,7 @@ contract TicketMarketplace {
         string calldata addressString
     ) public view returns (Ticket[] memory) {
 
-
+    
         uint256 count = 0;
         for (uint256 i = 0; i < tickets.length; i++) {
             if (keccak256(bytes(tickets[i].worker)) == keccak256(bytes(addressString))) {
@@ -155,6 +155,28 @@ contract TicketMarketplace {
         uint256 index = 0;
         for (uint256 i = 0; i < tickets.length; i++) {
             if (keccak256(bytes(tickets[i].worker)) == keccak256(bytes(addressString))) {
+                filteredItems[index] = tickets[i];
+                index++;
+            }
+        }
+
+        return filteredItems;
+    }
+
+
+    function getYourRequestTicket() public view returns (Ticket[] memory) {
+
+        uint256 count = 0;
+        for (uint256 i = 0; i < tickets.length; i++) {
+            if (tickets[i].customer == msg.sender) {
+                count++;
+            }
+        }
+
+        Ticket[] memory filteredItems = new Ticket[](count);
+        uint256 index = 0;
+        for (uint256 i = 0; i < tickets.length; i++) {
+            if (tickets[i].customer == msg.sender) {
                 filteredItems[index] = tickets[i];
                 index++;
             }
