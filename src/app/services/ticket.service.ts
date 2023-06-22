@@ -84,6 +84,7 @@ export class TicketService {
   }
 
   async getYourRequestTicket(): Promise<any> {
-    return this.contract.methods.getYourRequestTicket().call();
+    const accounts = await this.web3.eth.getAccounts();
+    return this.contract.methods.getYourRequestTicket(accounts[0]).call();
   }
 }

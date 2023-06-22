@@ -107,20 +107,22 @@ export class ExpertDetailComponent implements OnInit {
       });
     }
 
-    await this.ticketSv.getTicketsByAddress(accounts[0]).then((res) => {
-      const newArr = res.map((item: any) => {
-        const color = this.generatorColor(item?.status);
-        return {
-          id: item?.id,
-          title: item?.title,
-          tag: item?.tag,
-          date: item?.date,
-          ...color,
-        };
+    await this.ticketSv
+      .getTicketsByAddress(this.inforExperts?.userInfo?.walletAddress)
+      .then((res) => {
+        const newArr = res.map((item: any) => {
+          const color = this.generatorColor(item?.status);
+          return {
+            id: item?.id,
+            title: item?.title,
+            tag: item?.tag,
+            date: item?.date,
+            ...color,
+          };
+        });
+        this.products = [...newArr];
+        this.productsBackUp = [...newArr];
       });
-      this.products = [...newArr];
-      this.productsBackUp = [...newArr];
-    });
   }
 
   searchPJ(e: any) {
@@ -190,8 +192,6 @@ export class ExpertDetailComponent implements OnInit {
 
   async sendRequest() {
     let decode_token = jwt_decode(Cookie.get(AuthConstant.ACCESS_TOKEN_KEY));
-
-    console.log('decode_token', decode_token);
 
     if (this.tags && this.title) {
       this.ticketSv
