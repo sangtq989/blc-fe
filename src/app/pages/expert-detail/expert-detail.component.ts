@@ -7,6 +7,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 import { Cookie } from 'ng2-cookies';
 import { AuthConstant } from 'src/app/constants/auth.constant';
 import * as moment from 'moment';
+import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-expert-detail',
   templateUrl: './expert-detail.component.html',
@@ -191,9 +192,13 @@ export class ExpertDetailComponent implements OnInit {
     let accounts = await window.ethereum.request({
       /* New */ method: 'eth_requestAccounts' /* New */,
     });
+
+    let decode_token = jwt_decode(Cookie.get(AuthConstant.ACCESS_TOKEN_KEY));
+
     if (this.tags && this.title) {
       this.ticketSv
         .createTicket(
+          JSON.parse(JSON.stringify(decode_token)).sub,
           this.title,
           this.tags
             ?.map((item) => JSON.parse(JSON.stringify(item)).name)

@@ -19,7 +19,7 @@ export class TicketService {
 
     this.contract = new this.web3.eth.Contract(
       this.abi,
-      '0x8d765e067bA5bF6596cAAB559567a0080cDa7aE8'
+      '0x96fE6c51f4B6Fa713269b67624aC38DaeFfcA72d'
     );
     this.call = this.contract.methods;
   }

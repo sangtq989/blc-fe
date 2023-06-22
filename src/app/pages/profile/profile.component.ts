@@ -9,6 +9,7 @@ import {
 import { DialogModule } from 'primeng/dialog';
 import { MessageService } from 'primeng/api';
 import { TicketService } from 'src/app/services/ticket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     public dialog: DialogModule,
     private messageService: MessageService,
-    private ticketSv: TicketService
+    private ticketSv: TicketService,
+    private router: Router
   ) {}
   value: number = 4.8;
   valueRate: number = 0;
@@ -52,8 +54,13 @@ export class ProfileComponent implements OnInit {
   visibleCourses: boolean = false;
   visibleSkills: boolean = false;
   visibleRating: boolean = false;
+  visibleReason: boolean = false;
   namePj: string = '';
   namePjRequest: string = '';
+  idCancel: string = '';
+  reason: string = '';
+  emailRate: string = '';
+  isCancelRequest: boolean = false;
   ngOnInit(): void {
     this.statusList = [
       { name: 'Proposal', code: '0' },
@@ -74,6 +81,10 @@ export class ProfileComponent implements OnInit {
       ? undefined
       : this.sliceOptions.default;
     this.seeMore = !this.seeMore;
+  }
+
+  goToDetailExpert(email: string) {
+    this.router.navigate([`/experts/${email}`]);
   }
 
   async initData() {
@@ -119,7 +130,6 @@ export class ProfileComponent implements OnInit {
       /* New */ method: 'eth_requestAccounts' /* New */,
     });
     await this.ticketSv.getYourRequestTicket(accounts[0]).then((res) => {
-      console.log('res ', res);
       const newArr = res.map((item: any) => {
         const color = this.generatorColor(item?.status);
         return {
@@ -128,6 +138,7 @@ export class ProfileComponent implements OnInit {
           tag: item?.tag,
           date: item?.date,
           status: item?.status,
+          email: item?.senderEmail,
           rate: item?.rate,
           ...color,
         };
@@ -407,46 +418,16 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  cancelProject(id: any) {
-    this.ticketSv
-      .cancelTicket(Number(id))
-      .then(() => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Cập nhật ticket thành công',
-        });
-        this.getTickets();
-        this.getRequest();
-      })
-      .catch(() => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Error',
-        });
-      });
+  cancelProject(id: any, type: number) {
+    this.visibleReason = true;
+    this.idCancel = id;
+    this.isCancelRequest = Boolean(type);
   }
 
-  cancelRequest(id: any) {
-    this.ticketSv
-      .cancelTicket(Number(id))
-      .then(() => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Cập nhật ticket thành công',
-        });
-        this.getTickets();
-        this.getRequest();
-      })
-      .catch(() => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Error',
-        });
-      });
+  cancelRequest(id: any, type: number) {
+    this.visibleReason = true;
+    this.idCancel = id;
+    this.isCancelRequest = Boolean(type);
   }
 
   completeProject(id: any) {
@@ -469,9 +450,10 @@ export class ProfileComponent implements OnInit {
         });
       });
   }
-  rateRequest(id: any) {
+  rateRequest(id: any, email: string) {
     this.visibleRating = true;
     this.requestId = id;
+    this.emailRate = email;
   }
   onSubmitRate() {
     this.ticketSv
@@ -483,15 +465,71 @@ export class ProfileComponent implements OnInit {
           detail: 'Cập nhật ticket thành công',
         });
         this.visibleRating = false;
+        this.emailRate = '';
         this.getTickets();
         this.getRequest();
       })
       .catch(() => {
+        this.visibleRating = false;
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
           detail: 'Error',
         });
       });
+  }
+
+  onSubmitCancel() {
+    if (this.isCancelRequest) {
+      if (this.reason) {
+        this.ticketSv
+          .cancelTicket(this.reason, Number(this.idCancel))
+          .then(() => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Cập nhật ticket thành công',
+            });
+            this.visibleReason = false;
+            this.reason = '';
+            this.idCancel = '';
+            this.getTickets();
+            this.getRequest();
+          })
+          .catch(() => {
+            this.visibleReason = false;
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error',
+            });
+          });
+      }
+    } else {
+      if (this.reason) {
+        this.ticketSv
+          .cancelTicket(this.reason, Number(this.idCancel))
+          .then(() => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Cập nhật ticket thành công',
+            });
+            this.visibleReason = false;
+            this.reason = '';
+            this.idCancel = '';
+            this.getTickets();
+            this.getRequest();
+          })
+          .catch(() => {
+            this.visibleReason = false;
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error',
+            });
+          });
+      }
+    }
   }
 }

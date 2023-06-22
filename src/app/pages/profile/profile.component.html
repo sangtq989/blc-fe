@@ -197,7 +197,7 @@
               <div
                 *ngIf="product?.status === '0'"
                 style="color: #c50606; cursor: pointer"
-                (click)="cancelProject(product?.id)"
+                (click)="cancelProject(product?.id, 0)"
               >
                 Từ chối
               </div>
@@ -296,21 +296,21 @@
               <div
                 *ngIf="request?.status === '0'"
                 style="color: #2e70ea; cursor: pointer"
-                (click)="cancelRequest(request?.id)"
+                (click)="cancelRequest(request?.id, 1)"
               >
                 Huỷ
               </div>
               <div
-                *ngIf="request?.status === '3'"
+                *ngIf="request?.status === '3' || request?.status === '1'"
                 style="color: #c50606; cursor: pointer"
-                (click)="cancelRequest(request?.id)"
+                (click)="cancelRequest(request?.id, 1)"
               >
                 Từ chối
               </div>
               <div
                 *ngIf="request?.status === '3'"
                 style="color: #2e70ea; cursor: pointer"
-                (click)="rateRequest(request?.id)"
+                (click)="rateRequest(request?.id, request?.email)"
               >
                 Đánh giá
               </div>
@@ -794,7 +794,15 @@
     [draggable]="false"
     [resizable]="false"
   >
-    <div class="text-xl">Tên chuyên gia:</div>
+    <div class="text-xl">
+      Tên chuyên gia:
+      <span
+        class="cursor-pointer"
+        style="color: blue"
+        (click)="goToDetailExpert(emailRate)"
+        >{{ emailRate }}</span
+      >
+    </div>
 
     <div class="flex justify-center">
       <p-rating [(ngModel)]="valueRate" [cancel]="false"></p-rating>
@@ -804,6 +812,33 @@
     <ng-template pTemplate="footer">
       <div class="flex justify-center">
         <p-button label="Gửi đánh giá" (click)="onSubmitRate()"></p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog
+    header="Lý do từ chối"
+    [(visible)]="visibleReason"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <p>Hãy điền lý do của bạn <span style="color: red">*</span></p>
+    <textarea
+      class="w-100"
+      rows="3"
+      cols="20"
+      [(ngModel)]="reason"
+      pInputTextarea
+    ></textarea>
+    <ng-template pTemplate="footer">
+      <div class="flex justify-center">
+        <p-button
+          label="Cancel"
+          styleClass="p-button-danger"
+          (click)="onSubmitCancel()"
+        ></p-button>
       </div>
     </ng-template>
   </p-dialog>
