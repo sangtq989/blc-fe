@@ -18,6 +18,8 @@ contract TicketMarketplace {
         string description;
         string tag;
         string date;
+        string senderEmail;
+        string cancelReason;
         int rate;
         TicketStatus status;
     }
@@ -40,6 +42,7 @@ contract TicketMarketplace {
     Ticket[] public tickets;
 
     function createTicket(
+        string memory senderEmail,
         string memory title,
         string memory tags,
         string memory date,
@@ -50,6 +53,8 @@ contract TicketMarketplace {
             Ticket({
                 id: tickets.length,
                 customer: msg.sender,
+                senderEmail: senderEmail,
+                cancelReason: "",
                 title: title,
                 worker: target,
                 date: date,
@@ -63,14 +68,16 @@ contract TicketMarketplace {
     }
 
     function cancelTicket(
+        string memory cancelReason,
         uint256 ticketIndex
     ) public {
         Ticket storage ticket = tickets[ticketIndex];
         require(
-            ticket.status == TicketStatus.Proposal,
+            ticket.status == TicketStatus.Proposal || ticket.status == TicketStatus.ExpertDone,
             "You can't cancel the ticket if started"
         );
         ticket.status = TicketStatus.Cancel;
+        ticket.cancelReason = cancelReason;
         emit ContractUpdated(
             ApplicationName,
             WorkflowName,
