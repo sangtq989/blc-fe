@@ -38,6 +38,7 @@ export class TicketService {
   // }
 
   async createTicket(
+    senderEmail: string,
     title: string,
     tags: string,
     date: string,
@@ -46,14 +47,14 @@ export class TicketService {
   ): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .createTicket(title, tags, date, description, targetAddress)
+      .createTicket(senderEmail, title, tags, date, description, targetAddress)
       .send({ from: accounts[0] });
   }
 
-  async cancelTicket(ticketIndex: number): Promise<void> {
+  async cancelTicket(cancelReason: string, ticketIndex: number): Promise<void> {
     const accounts = await this.web3.eth.getAccounts();
     return this.contract.methods
-      .cancelTicket(ticketIndex)
+      .cancelTicket(cancelReason, ticketIndex)
       .send({ from: accounts[0] });
   }
 
