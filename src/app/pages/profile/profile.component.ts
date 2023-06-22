@@ -168,35 +168,35 @@ export class ProfileComponent implements OnInit {
         return {
           background: '#F1FFE4',
           color: '#797979',
-          status: 'Proposal',
+          statusName: 'Chờ xử lý',
         };
         break;
       case '1':
         return {
           background: '#E3F2FF',
           color: '#2B83FF',
-          status: 'Doing',
+          statusName: 'Tiến hành',
         };
         break;
       case '2':
         return {
           background: '#FFE2E2',
           color: '#C50606',
-          status: 'Cancel',
+          statusName: 'Đã từ chối',
         };
         break;
       case '3':
         return {
           background: '#FFF2C9',
           color: '#AEAEAE',
-          status: 'ExpertDone',
+          statusName: 'Chờ Review',
         };
         break;
       case '4':
         return {
           background: '#F1FFE4',
           color: '#31B055',
-          status: 'CustDone',
+          statusName: 'Hoàn thành',
         };
         break;
 

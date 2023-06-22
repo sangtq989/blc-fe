@@ -180,7 +180,7 @@
                 padding: '2px 8px'
               }"
             >
-              {{ product?.status }}
+              {{ product?.statusName }}
             </div>
           </td>
           <td>{{ product?.tag }}</td>
@@ -188,28 +188,28 @@
           <td>
             <div class="status">
               <div
-                *ngIf="product?.status === 'Proposal'"
+                *ngIf="product?.status === '0'"
                 style="color: #2e70ea; cursor: pointer"
                 (click)="acceptProject(product?.id)"
               >
                 Chấp nhận
               </div>
               <div
-                *ngIf="product?.status === 'Proposal'"
+                *ngIf="product?.status === '0'"
                 style="color: #c50606; cursor: pointer"
                 (click)="cancelProject(product?.id)"
               >
                 Từ chối
               </div>
               <div
-                *ngIf="product?.status === 'Doing'"
+                *ngIf="product?.status === '1'"
                 style="color: #2e70ea; cursor: pointer"
                 (click)="completeProject(product?.id)"
               >
                 Hoàn thành
               </div>
               <p-rating
-                *ngIf="product?.status === 'CustDone'"
+                *ngIf="product?.status === '4'"
                 [(ngModel)]="product.rate"
                 [readonly]="true"
                 [cancel]="false"
@@ -286,7 +286,7 @@
                 padding: '2px 8px'
               }"
             >
-              {{ request?.status }}
+              {{ request?.statusName }}
             </div>
           </td>
           <td>{{ request?.tag }}</td>
@@ -294,28 +294,28 @@
           <td>
             <div class="status">
               <div
-                *ngIf="request?.status === 'Proposal'"
+                *ngIf="request?.status === '0'"
                 style="color: #2e70ea; cursor: pointer"
                 (click)="cancelRequest(request?.id)"
               >
                 Huỷ
               </div>
               <div
-                *ngIf="request?.status === 'ExpertDone'"
+                *ngIf="request?.status === '3'"
                 style="color: #c50606; cursor: pointer"
                 (click)="cancelRequest(request?.id)"
               >
                 Từ chối
               </div>
               <div
-                *ngIf="request?.status === 'ExpertDone'"
+                *ngIf="request?.status === '3'"
                 style="color: #2e70ea; cursor: pointer"
                 (click)="rateRequest(request?.id)"
               >
                 Đánh giá
               </div>
               <p-rating
-                *ngIf="request?.status === 'CustDone'"
+                *ngIf="request?.status === '4'"
                 [(ngModel)]="request.rate"
                 [readonly]="true"
                 [cancel]="false"
