@@ -26,6 +26,8 @@ export class SignUpComponent implements OnInit {
   locationWrkForm: any = false;
   genderOptions: any = [];
   specialityList: any = [];
+  email: string = '';
+  password: string = '';
   degreeTypeList: any = CommonConstant.DEGREE_TYPE_LIST;
 
   constructor(
@@ -62,30 +64,36 @@ export class SignUpComponent implements OnInit {
   }
 
   register() {
-    this.authService.signup(this.user).subscribe({
-      next: (res) => {
-        Swal.fire({
-          title: 'Đăng ký thành công, vào email để xác thực !',
-          icon: 'success',
-          showCancelButton: true,
-          confirmButtonText: 'Yes',
-        }).then((result: any) => {
-          if (result.value) {
-            this.router.navigate(['/auth/login']);
+    this.authService
+      .signup({
+        email: this.email,
+        password: this.password,
+        role: 'USER',
+      })
+      .subscribe({
+        next: (res) => {
+          Swal.fire({
+            title: 'Đăng ký thành công, vào email để xác thực !',
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+          }).then((result: any) => {
+            if (result.value) {
+              this.router.navigate(['/auth/login']);
+            } else {
+            }
+          });
+          this.signUpForm = false;
+          this.certForm = true;
+        },
+        error: (err) => {
+          if (err.internalStatus === CommonConstant.EXISTED) {
+            this.toastService.error('Email đã tồn tại', 'Error');
           } else {
+            this.toastService.error('Có lỗi xảy ra', 'Error');
           }
-        });
-        this.signUpForm = false;
-        this.certForm = true;
-      },
-      error: (err) => {
-        if (err.internalStatus === CommonConstant.EXISTED) {
-          this.toastService.error('Email đã tồn tại', 'Error');
-        } else {
-          this.toastService.error('Có lỗi xảy ra', 'Error');
-        }
-      },
-    });
+        },
+      });
   }
 
   onVerifyEmail() {

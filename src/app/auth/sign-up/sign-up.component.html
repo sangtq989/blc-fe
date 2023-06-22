@@ -1,11 +1,11 @@
-<div class="account-pages my-5 pt-sm-1">
+<div class="my-5 account-pages pt-sm-1">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="card overflow-hidden p-0" style="width: 700px">
+      <div class="p-0 overflow-hidden card" style="width: 700px">
         <div class="bg-soft bg-primary">
           <div class="row">
             <div class="col-7">
-              <div class="text-primary p-4">
+              <div class="p-4 text-primary">
                 <h5 class="text-primary">Welcome Back !</h5>
                 <p>Sign in to continue to Skote.</p>
               </div>
@@ -19,10 +19,10 @@
             </div>
           </div>
         </div>
-        <div class="card-body pt-0">
+        <div class="pt-0 card-body">
           <div>
             <a routerLink="/">
-              <div class="avatar-md profile-user-wid mb-4">
+              <div class="mb-4 avatar-md profile-user-wid">
                 <span class="avatar-title rounded-circle bg-light">
                   <img
                     src="assets/images/logo-kma.png"
@@ -30,7 +30,7 @@
                     class="rounded-circle"
                     height="34"
                     style="position: absolute; top: 0"
-                    (click)="goToLandingPage()"  
+                    (click)="goToLandingPage()"
                   />
                 </span>
               </div>
@@ -38,8 +38,8 @@
           </div>
           <div class="p-2">
             <form class="form-horizontal" *ngIf="signUpForm">
-              <div class="row mb-3">
-                <span class="text-center fs-3 mb-3"><b>Đăng ký</b></span>
+              <div class="mb-3 row">
+                <span class="mb-3 text-center fs-3"><b>Đăng ký</b></span>
                 <span *ngIf="role == 'expert'" class="text-center"
                   >Tạo tài khoản với vai trò là Chuyên gia về an toàn thông
                   tin</span
@@ -53,8 +53,10 @@
                 <label class="mb-2">Tên tài khoản</label>
                 <input
                   type="text"
+                  [(ngModel)]="email"
                   class="form-control"
                   placeholder="Tên tài khoản"
+                  [ngModelOptions]="{ standalone: true }"
                 />
               </div>
 
@@ -64,6 +66,8 @@
                   <input
                     class="form-control"
                     placeholder="Mật khẩu"
+                    [(ngModel)]="password"
+                    [ngModelOptions]="{ standalone: true }"
                     type="password"
                     id="password"
                   />
@@ -74,19 +78,21 @@
                 <p-button label="Đăng ký" (click)="register()"></p-button>
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <span class="text-center"
                   >Bạn đã có tài khoản ?
                   <b
-                    ><a class="text-black" routerLink="/auth/login">Đăng nhập</a></b
+                    ><a class="text-black" routerLink="/auth/login"
+                      >Đăng nhập</a
+                    ></b
                   ></span
                 >
               </div>
             </form>
 
             <form *ngIf="certForm">
-              <div class="row mb-3">
-                <span class="text-center fs-3 mb-3"><b>Xác thực Email</b></span>
+              <div class="mb-3 row">
+                <span class="mb-3 text-center fs-3"><b>Xác thực Email</b></span>
                 <span class="text-center"
                   >Xin chào, email chứa mã xác thực đã được gửi tới địa chỉ
                   email của bạn. Vui lòng kiểm tra email và nhập mã xác
@@ -102,14 +108,14 @@
                 />
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <p-button
                   label="Gửi mã xác thực"
                   (click)="onVerifyEmail()"
                 ></p-button>
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <span class="text-center"
                   >Nếu chưa nhận được mã xác thực, vui lòng bấm
                   <b
@@ -119,9 +125,9 @@
               </div>
             </form>
 
-            <div class="row mb-3" *ngIf="connectMetamask">
-              <div class="row mb-3">
-                <span class="text-center fs-3 mb-3"
+            <div class="mb-3 row" *ngIf="connectMetamask">
+              <div class="mb-3 row">
+                <span class="mb-3 text-center fs-3"
                   ><b>Kết nối ví Metamask !</b></span
                 >
                 <span class="text-center"
@@ -133,14 +139,14 @@
                 >
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <img
                   src="../../assets/images/metamask.svg"
                   style="height: 150px"
                 />
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <p-button
                   label="Kết nối ví Metamask"
                   (click)="onSubmitGeneralProfile()"
@@ -149,8 +155,8 @@
             </div>
 
             <form *ngIf="generalInfoForm">
-              <div class="row mb-3">
-                <span class="text-center fs-3 mb-3"><b>Chào mừng !</b></span>
+              <div class="mb-3 row">
+                <span class="mb-3 text-center fs-3"><b>Chào mừng !</b></span>
                 <span class="text-center"
                   >Hãy bắt đầu tài khoản của bạn bằng cách tạo thông tin cá
                   nhân</span
@@ -226,7 +232,7 @@
                 </div>
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <p-button
                   label="Tiếp tục"
                   (click)="onSubmitGeneralProfile()"
@@ -235,8 +241,8 @@
             </form>
 
             <form class="form-horizontal" *ngIf="locationWrkForm">
-              <div class="row mb-3">
-                <span class="text-center fs-3 mb-3"
+              <div class="mb-3 row">
+                <span class="mb-3 text-center fs-3"
                   ><b>Địa điểm bạn đang làm việc</b></span
                 >
                 <span *ngIf="role == 'expert'" class="text-center"
@@ -268,7 +274,7 @@
                 />
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <p-button
                   label="Tiếp tục"
                   (click)="onSubmitLocationWrk()"
@@ -277,8 +283,8 @@
             </form>
 
             <form class="form-horizontal" *ngIf="specializedInfoForm">
-              <div class="row mb-3">
-                <span class="text-center fs-3 mb-3"
+              <div class="mb-3 row">
+                <span class="mb-3 text-center fs-3"
                   ><b>Thông tin chuyên ngành</b></span
                 >
                 <span *ngIf="role == 'expert'" class="text-center"
@@ -356,7 +362,7 @@
                 <div class="row" *ngIf="user.expWrk && user.expWrk.length > 0">
                   <hr />
 
-                  <div class="row mb-3" *ngFor="let item of user.expWrk">
+                  <div class="mb-3 row" *ngFor="let item of user.expWrk">
                     <div class="col-lg-2">
                       <div
                         style="height: 70px; width: 70px; background: #d9d9d9"
@@ -381,12 +387,12 @@
                 </p>
 
                 <div
-                  class="row mb-3"
+                  class="mb-3 row"
                   *ngIf="user.degree && user.degree.length > 0"
                 >
                   <hr />
 
-                  <div class="row mb-3" *ngFor="let item of user.degree">
+                  <div class="mb-3 row" *ngFor="let item of user.degree">
                     <div class="col-lg-2">
                       <div
                         style="height: 70px; width: 70px; background: #d9d9d9"
@@ -403,7 +409,7 @@
                 </div>
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <p-button
                   label="Lưu hồ sơ"
                   (click)="onSubmitSpecializedInfo()"
@@ -412,7 +418,7 @@
             </form>
 
             <form class="form-horizontal" *ngIf="expWrkForm">
-              <div class="row mb-3 align-items-center">
+              <div class="mb-3 row align-items-center">
                 <div class="col-lg-1">
                   <i
                     class="fa fa-arrow-left"
@@ -420,8 +426,8 @@
                     (click)="onBackSpecializedForm()"
                   ></i>
                 </div>
-                <div class="col-lg-10 text-center">
-                  <span class="fs-3 mb-3"
+                <div class="text-center col-lg-10">
+                  <span class="mb-3 fs-3"
                     ><b>Thêm kinh nghiệm làm việc</b></span
                   >
                 </div>
@@ -512,13 +518,13 @@
                 </div>
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <p-button label="Lưu" (click)="onSubmitExpWrk()"></p-button>
               </div>
             </form>
 
             <form class="form-horizontal" *ngIf="degreeForm">
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <div class="col-lg-1">
                   <i
                     class="fa fa-arrow-left"
@@ -526,8 +532,8 @@
                     (click)="onBackSpecializedForm()"
                   ></i>
                 </div>
-                <div class="col-lg-10 text-center">
-                  <span class="fs-3 mb-3"
+                <div class="text-center col-lg-10">
+                  <span class="mb-3 fs-3"
                     ><b>TThêm chứng chỉ/ bằng cấp</b></span
                   >
                 </div>
@@ -716,7 +722,7 @@
                 </div>
               </div>
 
-              <div class="row mb-3">
+              <div class="mb-3 row">
                 <p-button label="Lưu" (click)="onSubmitDegree()"></p-button>
               </div>
             </form>
