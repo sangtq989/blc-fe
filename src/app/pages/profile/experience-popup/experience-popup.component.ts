@@ -31,7 +31,7 @@ export class ExperiencePopupComponent implements OnInit {
     const payload: any = {
       companyAddress: this.companyAddress,
       companyName: this.companyName,
-      currentJob: this.currentJob,
+      isCurrentJob: this.currentJob,
       employeeType: JSON.parse(JSON.stringify(this.employeeType)).name,
       endDate: moment(this.endDate).format('YYYY-MM'),
       startDate: moment(this.startDate).format('YYYY-MM'),

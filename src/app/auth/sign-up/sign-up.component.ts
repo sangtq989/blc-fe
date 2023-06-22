@@ -41,7 +41,6 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
     this.user = {};
     this.role = this.route.snapshot.queryParams['role'];
-    console.log(this.route.snapshot.queryParams['role']);
 
     this.genderOptions = [
       { label: 'Nam', value: 'Nam' },
@@ -68,7 +67,7 @@ export class SignUpComponent implements OnInit {
       .signup({
         email: this.email,
         password: this.password,
-        role: 'USER',
+        role: this.role === 'user' ? 'USER' : 'COMPANY',
       })
       .subscribe({
         next: (res) => {

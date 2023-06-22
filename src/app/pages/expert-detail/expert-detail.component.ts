@@ -189,11 +189,9 @@ export class ExpertDetailComponent implements OnInit {
   }
 
   async sendRequest() {
-    let accounts = await window.ethereum.request({
-      /* New */ method: 'eth_requestAccounts' /* New */,
-    });
-
     let decode_token = jwt_decode(Cookie.get(AuthConstant.ACCESS_TOKEN_KEY));
+
+    console.log('decode_token', decode_token);
 
     if (this.tags && this.title) {
       this.ticketSv
@@ -205,7 +203,7 @@ export class ExpertDetailComponent implements OnInit {
             .toString(),
           moment().format('YYYY-MM-DD'),
           this.description,
-          accounts?.[0]
+          this.inforExperts?.userInfo?.walletAddress
         )
         .then(() => {
           this.messageService.add({

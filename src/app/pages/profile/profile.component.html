@@ -1,8 +1,16 @@
 <div class="container mt-20">
   <!-- infomation and contact -->
-  <div class="mb-5 row">
+  <div
+    class="mb-5 row"
+    [ngClass]="inforExperts?.userInfo?.role === 'USER' ? '' : 'bg-white'"
+  >
     <div
-      class="p-8 bg-white row col-lg-8 rounded-3xl"
+      class="p-8 row rounded-3xl"
+      [ngClass]="
+        inforExperts?.userInfo?.role === 'USER'
+          ? 'col-lg-8 bg-white'
+          : 'col-lg-12'
+      "
       [ngStyle]="
         inforExperts?.userInfo?.walletAddress
           ? { 'margin-right': '12px' }
@@ -21,25 +29,45 @@
         <p
           class="text-xl font-semibold"
           style="font-family: 'Montserrat', sans-serif"
+          *ngIf="inforExperts?.userInfo?.role === 'USER'"
         >
-          {{ inforExperts?.userInfo.firstName }}
-          {{ inforExperts?.userInfo.lastName }}
+          {{ inforExperts?.userInfo?.firstName }}
+          {{ inforExperts?.userInfo?.lastName }}
+        </p>
+        <p
+          class="text-xl font-semibold"
+          style="font-family: 'Montserrat', sans-serif"
+          *ngIf="inforExperts?.userInfo?.role !== 'USER'"
+        >
+          {{ inforExperts?.userInfo?.companyName }}
         </p>
         <p
           class="text-[16px] font-medium"
           style="font-family: 'Montserrat', sans-serif"
+          *ngIf="inforExperts?.userInfo?.role === 'USER'"
         >
-          {{ inforExperts?.userInfo.jobTitle }},
-          {{ inforExperts?.userInfo.companyName }}
+          {{ inforExperts?.userInfo?.jobTitle }} ,
+          {{ inforExperts?.userInfo?.companyName }}
+        </p>
+
+        <p
+          class="text-[16px] font-medium"
+          style="font-family: 'Montserrat', sans-serif"
+          *ngIf="inforExperts?.userInfo?.role !== 'USER'"
+        >
+          {{ inforExperts?.userInfo?.jobTitle }}
         </p>
         <div class="flex">
-          <span class="address">{{ inforExperts?.userInfo.location }}</span>
-          <span class="contact-btn" (click)="openContactInfo()"
+          <span class="address">{{ inforExperts?.userInfo?.location }}</span>
+          <span
+            *ngIf="inforExperts?.userInfo?.role === 'USER'"
+            class="contact-btn"
+            (click)="openContactInfo()"
             >Contact Info</span
           >
           <p-dialog
-            header="{{ inforExperts?.userInfo.firstName }}
-            {{ inforExperts?.userInfo.lastName }}"
+            header="{{ inforExperts?.userInfo?.firstName }}
+            {{ inforExperts?.userInfo?.lastName }}"
             [(visible)]="visible"
             [modal]="true"
             [style]="{ width: '50vw' }"
@@ -54,7 +82,7 @@
               />
               <div style="margin-left: 10px">
                 <div>Your Phone</div>
-                <div>{{ inforExperts?.userInfo.phone }}</div>
+                <div>{{ inforExperts?.userInfo?.phone }}</div>
               </div>
             </div>
             <div class="flex items-start mb-3">
@@ -65,7 +93,7 @@
               <div style="margin-left: 10px">
                 <div>Email</div>
                 <a href="mailto:thiennt@gmail.com">{{
-                  inforExperts?.userInfo.email
+                  inforExperts?.userInfo?.email
                 }}</a>
               </div>
             </div>
@@ -76,12 +104,17 @@
               />
               <div style="margin-left: 10px">
                 <div>Birthday</div>
-                <span>{{ inforExperts?.userInfo.dateOfBirth }}</span>
+                <span>{{ inforExperts?.userInfo?.dateOfBirth }}</span>
               </div>
             </div>
           </p-dialog>
         </div>
-        <button class="send-request-btn">+ Thêm phần hồ sơ</button>
+        <button
+          *ngIf="inforExperts?.userInfo?.role === 'USER'"
+          class="send-request-btn"
+        >
+          + Thêm phần hồ sơ
+        </button>
         <button
           *ngIf="!inforExperts?.userInfo?.walletAddress"
           class="send-request-btn"
@@ -90,22 +123,62 @@
         >
           Connect Wallet
         </button>
+
+        <div *ngIf="inforExperts?.userInfo?.role !== 'USER'" class="flex mt-4">
+          <div
+            class="flex items-center"
+            style="margin-right: 10px"
+            *ngIf="inforExperts?.userInfo?.numberOfEmployee"
+          >
+            <img src="../../../assets/images/icons/members.png" alt="members" />
+            <span style="margin-left: 10px"
+              >{{ inforExperts?.userInfo?.numberOfEmployee }} + nhân viên</span
+            >
+          </div>
+          <div
+            class="flex items-center"
+            style="margin-right: 10px"
+            *ngIf="inforExperts?.userInfo?.link"
+          >
+            <img src="../../../assets/images/clock.svg" alt="icon clock" />
+            <span style="margin-left: 10px">{{
+              inforExperts?.userInfo?.link
+            }}</span>
+          </div>
+          <div
+            class="flex items-center"
+            style="margin-right: 10px"
+            *ngIf="inforExperts?.userInfo?.phone"
+          >
+            <img src="../../../assets/images/clock.svg" alt="icon clock" />
+            <span style="margin-left: 10px">{{
+              inforExperts?.userInfo?.phone
+            }}</span>
+          </div>
+        </div>
       </div>
-      <div class="p-10 col-lg-3">
+      <div
+        *ngIf="inforExperts?.userInfo?.role === 'USER'"
+        class="p-10 col-lg-3"
+      >
         <div class="flex items-center mb-3">
           <img src="../../../assets/images/clock.svg" alt="icon clock" />
-          <span class="exp">{{ inforExperts?.userInfo.yearOfExp }} năm</span>
+          <span class="exp">{{ inforExperts?.userInfo?.yearOfExp }} năm</span>
         </div>
         <div class="flex items-center">
           <img
             src="../../../assets/images/portfolio.svg"
             alt="icon portfolio"
           />
-          <span class="exp">{{ inforExperts?.userInfo.skill?.[0] }}</span>
+          <span class="exp">{{ inforExperts?.userInfo?.skill?.[0] }}</span>
         </div>
       </div>
     </div>
-    <div class="p-8 bg-white col-lg-4 rounded-3xl rank">
+
+    <div
+      *ngIf="inforExperts?.userInfo?.role === 'USER'"
+      class="p-8 bg-white col-lg-4 rounded-3xl rank"
+    >
       <p class="text-center">Xếp hạng</p>
       <div>
         <p class="rating">4.8</p>
@@ -118,10 +191,27 @@
         </div>
       </div>
     </div>
+    <div class="p-8" *ngIf="inforExperts?.userInfo?.role !== 'USER'">
+      <div class="flex items-center">
+        <div class="mark"></div>
+        <span class="title">Giới thiệu</span>
+      </div>
+      <div class="mt-2">{{ inforExperts?.userInfo?.description }}</div>
+    </div>
+    <div
+      class="absolute cursor-pointer"
+      style="width: max-content !important; top: 20px; right: 20px"
+      (click)="visibleUpdateProfile = !visibleUpdateProfile"
+    >
+      <img src="../../../assets/images/icons/icons-edit.png" alt="icon-edit" />
+    </div>
   </div>
 
   <!-- List project -->
-  <div class="p-8 mb-5 bg-white rounded-3xl">
+  <div
+    *ngIf="inforExperts?.userInfo?.role === 'USER'"
+    class="p-8 mb-5 bg-white rounded-3xl"
+  >
     <div class="flex items-center justify-between">
       <div class="flex">
         <div class="flex items-center">
@@ -227,12 +317,15 @@
   </div>
 
   <!-- List request -->
-  <div class="p-8 mb-5 bg-white rounded-3xl">
+  <div
+    *ngIf="inforExperts?.userInfo?.role !== 'USER'"
+    class="p-8 mb-5 bg-white rounded-3xl"
+  >
     <div class="flex items-center justify-between">
       <div class="flex">
         <div class="flex items-center">
           <div class="mark"></div>
-          <span class="title">Danh sách yêu cầu của bạn</span>
+          <span class="title">Danh sách dự án</span>
         </div>
         <div class="search-input">
           <img
@@ -333,7 +426,10 @@
   </div>
 
   <!-- List experiences -->
-  <div class="p-8 mb-5 bg-white rounded-3xl">
+  <div
+    *ngIf="inforExperts?.userInfo?.role === 'USER'"
+    class="p-8 mb-5 bg-white rounded-3xl"
+  >
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <div class="mark"></div>
@@ -411,7 +507,10 @@
   </div>
 
   <!-- List edu -->
-  <div class="p-8 mb-5 bg-white rounded-3xl">
+  <div
+    *ngIf="inforExperts?.userInfo?.role === 'USER'"
+    class="p-8 mb-5 bg-white rounded-3xl"
+  >
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <div class="mark"></div>
@@ -462,7 +561,10 @@
   </div>
 
   <!-- List certificate -->
-  <div class="p-8 mb-5 bg-white rounded-3xl">
+  <div
+    *ngIf="inforExperts?.userInfo?.role === 'USER'"
+    class="p-8 mb-5 bg-white rounded-3xl"
+  >
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <div class="mark"></div>
@@ -538,7 +640,10 @@
   </div>
 
   <!-- List awards -->
-  <div class="p-8 mb-5 bg-white rounded-3xl">
+  <div
+    *ngIf="inforExperts?.userInfo?.role === 'USER'"
+    class="p-8 mb-5 bg-white rounded-3xl"
+  >
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <div class="mark"></div>
@@ -591,7 +696,10 @@
   </div>
 
   <!-- List skill -->
-  <div class="p-8 mb-5 bg-white rounded-3xl">
+  <div
+    *ngIf="inforExperts?.userInfo?.role === 'USER'"
+    class="p-8 mb-5 bg-white rounded-3xl"
+  >
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <div class="mark"></div>
@@ -704,7 +812,10 @@
   </div>
 
   <!-- List course -->
-  <div class="p-8 mb-5 bg-white rounded-3xl">
+  <div
+    *ngIf="inforExperts?.userInfo?.role === 'USER'"
+    class="p-8 mb-5 bg-white rounded-3xl"
+  >
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <div class="mark"></div>
@@ -839,6 +950,154 @@
           styleClass="p-button-danger"
           (click)="onSubmitCancel()"
         ></p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog
+    header="Cập nhật thông tin"
+    [(visible)]="visibleUpdateProfile"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div *ngIf="inforExperts?.userInfo?.role !== 'USER'">
+      <p>Tên công ty <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        type="text"
+        [(ngModel)]="companyName"
+        placeholder="Nhập tên công ty"
+        pInputText
+      />
+
+      <p>Mã số thuế <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        type="text"
+        [(ngModel)]="taxNumber"
+        placeholder="Nhập mã số thuế"
+        pInputText
+      />
+
+      <p>Lĩnh vực hoạt động <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        type="text"
+        [(ngModel)]="jobTitle"
+        placeholder="Nhập lĩnh vực hoạt động"
+        pInputText
+      />
+
+      <p>Quy mô công ty <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        type="text"
+        [(ngModel)]="numberOfEmployee"
+        placeholder="Nhập quy mô công ty"
+        pInputText
+      />
+
+      <p>Số điện thoại <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        type="text"
+        [(ngModel)]="phone"
+        placeholder="Nhập số điện thoại"
+        pInputText
+      />
+      <p>Địa chỉ <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        type="text"
+        [(ngModel)]="location"
+        placeholder="Nhập địa chỉ chi tiết, phân cách nhau bằng kí tự '-'"
+        pInputText
+      />
+      <p>Website</p>
+      <input
+        class="w-100"
+        [(ngModel)]="link"
+        type="text"
+        placeholder="https://"
+        pInputText
+      />
+
+      <p>Giới thiệu</p>
+      <textarea
+        class="w-100"
+        rows="3"
+        cols="20"
+        [(ngModel)]="description"
+        placeholder="Nhập giới thiệu về công ty"
+        pInputTextarea
+      ></textarea>
+    </div>
+    <div *ngIf="inforExperts?.userInfo?.role === 'USER'">
+      <p>Họ <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        [(ngModel)]="firstName"
+        type="text"
+        placeholder="Nhập họ"
+        pInputText
+      />
+
+      <p>Tên <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        [(ngModel)]="lastName"
+        type="text"
+        placeholder="Nhập tên"
+        pInputText
+      />
+
+      <p>Giới tính <span style="color: red">*</span></p>
+      <p-selectButton
+        [options]="stateOptions"
+        [(ngModel)]="gender"
+        optionLabel="label"
+        optionValue="value"
+      ></p-selectButton>
+
+      <p>Ngày sinh <span style="color: red">*</span></p>
+      <p-calendar
+        [style]="{ width: '100%' }"
+        [(ngModel)]="dateOfBirth"
+      ></p-calendar>
+
+      <p>Số điện thoại <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        type="text"
+        [(ngModel)]="phone"
+        placeholder="Nhập số điện thoại"
+        pInputText
+      />
+      <p>Địa chỉ <span style="color: red">*</span></p>
+      <input
+        class="w-100"
+        type="text"
+        [(ngModel)]="location"
+        placeholder="Nhập địa chỉ chi tiết, phân cách nhau bằng kí tự '-'"
+        pInputText
+      />
+
+      <p>Giới thiệu</p>
+      <textarea
+        class="w-100"
+        rows="3"
+        cols="20"
+        [(ngModel)]="description"
+        placeholder="Nhập giới thiệu về bản thân"
+        pInputTextarea
+      ></textarea>
+    </div>
+    <div style="color: red">Vui lòng điền đầy đủ thông tin cần thiết!</div>
+    <ng-template pTemplate="footer">
+      <div class="flex justify-center">
+        <p-button label="Lưu hồ sơ" (click)="onSubmitUpdate()"></p-button>
       </div>
     </ng-template>
   </p-dialog>

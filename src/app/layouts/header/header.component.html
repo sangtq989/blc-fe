@@ -3,32 +3,12 @@
     <!-- Logo container-->
     <div class="col-lg-1"></div>
     <div class="col-lg-2 d-flex align-items-center">
-      <a class="logo" href="index.html">
+      <a class="logo" href="/">
         <span class="inline-block text-white dark:hidden fs-2">LOGO</span>
       </a>
     </div>
 
-    <div class="col-lg-4" id="navigation">
-      <ul class="navigation-menu" id="navigation-menu">
-        <li>
-          <span class="mx-2 fs-4" (click)="onNavgigate($event)"
-            ><a class="text-white active" routerLink="/">Trang chủ</a></span
-          >
-        </li>
-
-        <li>
-          <span class="mx-2 fs-4" (click)="onNavgigate($event)"
-            ><a class="text-white" routerLink="/experts">Chuyên gia</a></span
-          >
-        </li>
-
-        <li>
-          <span class="mx-2 fs-4" (click)="onNavgigate($event)"
-            ><a class="text-white">Về chúng tôi</a></span
-          >
-        </li>
-      </ul>
-    </div>
+    <div class="col-lg-4" id="navigation"></div>
 
     <!--Login button Start-->
     <div class="col-lg-4 d-flex justify-content-end" *ngIf="!login">
@@ -47,17 +27,17 @@
           styleClass="p-button-info"
         ></p-button>
       </a>
-      <!-- <a
+      <a
         class="text-white"
         routerLink="/auth/sign-up"
         [queryParams]="{ role: 'expert' }"
       >
         <p-button
           class="mx-2"
-          label="Đăng kí cho chuyên gia"
+          label="Đăng ký cho chuyên gia"
           styleClass="p-button-info"
         ></p-button
-      ></a> -->
+      ></a>
     </div>
 
     <div

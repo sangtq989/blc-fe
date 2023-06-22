@@ -6,7 +6,15 @@ export const getProfiles = () => {
     method: 'get',
   });
 };
-export const udpateProfiles = (data: any) => {
+
+export const updateProfiles = (data: any) => {
+  return service({
+    url: '/me/profile',
+    method: 'post',
+    data,
+  });
+};
+export const udpateWallet = (data: any) => {
   return service({
     url: '/me/profile/wallet-address',
     method: 'put',

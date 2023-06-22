@@ -4,12 +4,14 @@ import {
   getProfiles,
   createExperience,
   createSpecialty,
-  udpateProfiles,
+  udpateWallet,
+  updateProfiles,
 } from './apis/api';
 import { DialogModule } from 'primeng/dialog';
 import { MessageService } from 'primeng/api';
 import { TicketService } from 'src/app/services/ticket.service';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-profile',
@@ -55,13 +57,32 @@ export class ProfileComponent implements OnInit {
   visibleSkills: boolean = false;
   visibleRating: boolean = false;
   visibleReason: boolean = false;
+  visibleUpdateProfile: boolean = false;
   namePj: string = '';
   namePjRequest: string = '';
   idCancel: string = '';
   reason: string = '';
   emailRate: string = '';
   isCancelRequest: boolean = false;
-  ngOnInit(): void {
+  stateOptions: any[] = [
+    { label: 'Nam', value: 'Nam' },
+    { label: 'Nữ', value: 'Nữ' },
+  ];
+
+  firstName: string = '';
+  lastName: string = '';
+  gender: string = '';
+  dateOfBirth: any = '';
+  phone: string = '';
+  location: string = '';
+  description: string = '';
+
+  companyName: string = '';
+  taxNumber: string = '';
+  numberOfEmployee: string = '';
+  link: string = '';
+  jobTitle: string = '';
+  ngOnInit() {
     this.statusList = [
       { name: 'Proposal', code: '0' },
       { name: 'Doing', code: '1' },
@@ -71,6 +92,11 @@ export class ProfileComponent implements OnInit {
     ];
 
     this.initData();
+
+    console.log('this.inforExperts', this.inforExperts);
+
+    // this.valueaaaa = moment('2023-10-22').toDate();
+    // this.valuebbbbb = 'Nữ';
   }
 
   openContactInfo() {
@@ -87,10 +113,33 @@ export class ProfileComponent implements OnInit {
     this.router.navigate([`/experts/${email}`]);
   }
 
+  initFormUpdate() {
+    this.firstName = this?.inforExperts?.userInfo?.firstName;
+    this.lastName = this?.inforExperts?.userInfo?.lastName;
+    this.gender =
+      this?.inforExperts?.userInfo?.gender === 'MALE' ? 'Nam' : 'Nữ';
+
+    this.phone = this?.inforExperts?.userInfo?.phone;
+    this.location = this?.inforExperts?.userInfo?.location;
+    this.description = this?.inforExperts?.userInfo?.description;
+
+    this.companyName = this?.inforExperts?.userInfo?.companyName;
+    this.jobTitle = this?.inforExperts?.userInfo?.jobTitle;
+    this.taxNumber = this?.inforExperts?.userInfo?.taxNumber;
+    this.numberOfEmployee = this?.inforExperts?.userInfo?.numberOfEmployee;
+    this.link = this?.inforExperts?.userInfo?.link;
+    if (this?.inforExperts?.userInfo?.dateOfBirth) {
+      this.dateOfBirth = moment(
+        this?.inforExperts?.userInfo?.dateOfBirth
+      ).toDate();
+    }
+  }
+
   async initData() {
     try {
       const res = await getProfiles();
       this.inforExperts = res?.data?.data;
+      this.initFormUpdate();
     } catch (error) {
       this.messageService.add({
         severity: 'error',
@@ -126,10 +175,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async getRequest() {
-    let accounts = await window.ethereum.request({
-      /* New */ method: 'eth_requestAccounts' /* New */,
-    });
-    await this.ticketSv.getYourRequestTicket(accounts[0]).then((res) => {
+    await this.ticketSv.getYourRequestTicket().then((res) => {
       const newArr = res.map((item: any) => {
         const color = this.generatorColor(item?.status);
         return {
@@ -230,7 +276,7 @@ export class ProfileComponent implements OnInit {
           /* New */ method: 'eth_requestAccounts' /* New */,
         });
 
-        const res = await udpateProfiles({
+        const res = await udpateWallet({
           blockChainAddress: accounts?.[0],
         });
 
@@ -529,6 +575,92 @@ export class ProfileComponent implements OnInit {
               detail: 'Error',
             });
           });
+      }
+    }
+  }
+
+  async onSubmitUpdate() {
+    const payloadUser = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      gender: this.gender === 'Nam' ? 'MALE' : 'FEMALE',
+      dateOfBirth: moment(this.dateOfBirth).format('YYYY-MM-DD'),
+      phone: this.phone,
+      location: this.location,
+      description: this.description,
+    };
+
+    const payloadOther = {
+      companyName: this.companyName,
+      taxNumber: this.taxNumber,
+      numberOfEmployee: Number(this.numberOfEmployee),
+      link: this.link,
+      jobTitle: this.jobTitle,
+      phone: this.phone,
+      location: this.location,
+      description: this.description,
+    };
+
+    if (
+      this.inforExperts?.userInfo?.role === 'USER' &&
+      this.firstName &&
+      this.lastName &&
+      this.gender &&
+      this.dateOfBirth &&
+      this.phone &&
+      this.location
+    ) {
+      try {
+        const res = await updateProfiles(payloadUser);
+        if (res?.status === 200) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Cập nhật profile thành công',
+          });
+          this.visibleUpdateProfile = false;
+          this.initData();
+        }
+      } catch (error) {
+        this.visibleUpdateProfile = false;
+        this.initFormUpdate();
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error',
+        });
+      }
+      console.log('payloadUser', payloadUser);
+    }
+
+    if (
+      this.inforExperts?.userInfo?.role !== 'USER' &&
+      this.companyName &&
+      this.taxNumber &&
+      this.numberOfEmployee &&
+      this.jobTitle &&
+      this.location &&
+      this.phone
+    ) {
+      try {
+        const res = await updateProfiles(payloadOther);
+        if (res?.status === 200) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Cập nhật profile thành công',
+          });
+          this.visibleUpdateProfile = false;
+          this.initData();
+        }
+      } catch (error) {
+        this.visibleUpdateProfile = false;
+        this.initFormUpdate();
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error',
+        });
       }
     }
   }
